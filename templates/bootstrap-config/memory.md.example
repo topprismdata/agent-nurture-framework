@@ -1,0 +1,77 @@
+# Memory Index
+
+This file serves as the catalog for the agent's experiential memory. It tracks
+active memory files, archived entries, and the crystallization log.
+
+## Structure
+
+The memory directory is organized as follows:
+
+```
+memory/
+├── YYYY-MM-DD.md          — Daily session notes (one file per active day)
+├── decisions/             — Architecture Decision Records (ADR)
+│   └── NNNN-title.md      — Numbered decision records
+├── patterns/              — Observed patterns and heuristics
+│   └── pattern-name.md    — Named pattern descriptions
+└── errors/                — Error patterns and solutions
+    └── error-name.md      — Named error pattern descriptions
+```
+
+### File Naming Conventions
+
+- **Daily session notes:** `YYYY-MM-DD.md` (e.g., `2026-01-15.md`)
+- **Decision records:** `NNNN-short-title.md` (e.g., `0001-use-fastapi-over-flask.md`)
+- **Pattern descriptions:** `descriptive-kebab-case.md` (e.g., `retry-with-exponential-backoff.md`)
+- **Error patterns:** `descriptive-kebab-case.md` (e.g., `python-output-buffering-trap.md`)
+
+---
+
+## Active Memory Files
+
+| File | Topic | Last Updated | Status | Next Action |
+|------|-------|-------------|--------|-------------|
+| [YYYY-MM-DD.md] | [Topic description] | [Date] | Active / Awaiting crystallization | [Schedule crystallization / Monitor / Update] |
+| [decisions/NNNN-title.md] | [Decision topic] | [Date] | Active | [Implement / Review / Archive] |
+| [patterns/pattern-name.md] | [Pattern description] | [Date] | Active | [Crystallize into skill / Keep observing] |
+| [errors/error-name.md] | [Error description] | [Date] | Active | [Crystallize into skill / Keep observing] |
+
+**Status Definitions:**
+- **Active:** Currently in use or recently updated.
+- **Awaiting crystallization:** Contains extractable knowledge that has not yet been crystallized into a skill.
+
+---
+
+## Archived Memory Files
+
+Memory files that have been crystallized into skills or are no longer actively referenced.
+
+| File | Topic | Archived Date | Crystallized Into | Reason |
+|------|-------|-------------|-------------------|--------|
+| [YYYY-MM-DD.md] | [Topic] | [Date] | [skill-name] | Crystallized |
+| [YYYY-MM-DD.md] | [Topic] | [Date] | N/A | Obsolete |
+
+---
+
+## Crystallization Log
+
+Record of all crystallization sessions and their outputs.
+
+| Date | Source Files | Crystallized Into | Skills Created | Skills Updated | Operator |
+|------|-------------|------------------|---------------|---------------|----------|
+| [YYYY-MM-DD] | [List of memory files reviewed] | [Target skill files] | [Number] | [Number] | [Name] |
+| [YYYY-MM-DD] | [List of memory files reviewed] | [Target skill files] | [Number] | [Number] | [Name] |
+
+---
+
+## Memory Health Metrics
+
+Track these metrics to ensure the memory layer is healthy.
+
+| Metric | Value | Target | Status |
+|--------|-------|--------|--------|
+| Total active memory files | [N] | 10-30 | OK / High / Low |
+| Files awaiting crystallization | [N] | < 5 | OK / Backlog |
+| Stale files (>14 days without update) | [N] | < 30% of total | OK / Needs attention |
+| Average file age | [N days] | < 7 days for daily notes | OK / Stale |
+| Crystallization sessions this month | [N] | >= 2 | OK / Behind schedule |
