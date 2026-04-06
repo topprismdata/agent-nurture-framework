@@ -2,7 +2,7 @@
 
 ## Primary Sources
 
-1. Zhang, L. (2026). "Nurture-First Agent Development: Building Domain-Expert AI Agents Through Conversational Knowledge Crystallization." arXiv:2603.10808. [Link](https://arxiv.org/abs/2603.10808)
+1. Zhang, K. (2026). "Nurture-First Agent Development: Building Domain-Expert AI Agents Through Conversational Knowledge Crystallization." arXiv:2603.10808. [Link](https://arxiv.org/abs/2603.10808)
 
 2. Bhargava, S. (2026). "Modular Intelligence: A Skill-Based Paradigm for Scalable AI Agent Architecture." Journal of Information Systems Engineering and Management (JISEM). DOI: 10.52783/jisem.v11i1s.14306
 

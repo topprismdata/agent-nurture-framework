@@ -104,7 +104,7 @@ This ensures that crystallization never diminishes the agent's overall knowledge
 
 ### 2.2 The Five-Stage Learning Loop
 
-The agent's developmental process is organized as a cyclic five-stage loop, abstracted from the original ML-specific formulation into a general learning cycle.
+The agent's developmental process is organized as a cyclic five-stage loop.
 
 ```
 Study (Theory Input) --> Verify (Experimentation) --> Apply (Practice)
@@ -150,7 +150,7 @@ Plan (Gap Analysis) <-- Extract (Crystallization) <-----+
 **Output**: Experiential records including decisions, outcomes, reasoning traces, and contextual annotations.
 
 **Domain examples**:
-- *Machine Learning*: Participating in Kaggle competitions, building production ML pipelines.
+- *Machine Learning*: Building production ML pipelines, conducting domain-specific experiments.
 - *Software Engineering*: Developing features, debugging production issues, conducting code reviews.
 - *Legal Practice*: Drafting legal documents, analyzing real cases, negotiating contracts.
 - *Medical Diagnosis*: Assessing real patient presentations, developing treatment plans.
@@ -314,7 +314,7 @@ Resist the temptation to create a comprehensive initial configuration. A lean bo
 
 ### 5.2 Protect the Crystallization Quality
 
-Not every experience deserves to become a skill. Over-extraction dilutes the skill layer, making relevant knowledge harder to find and degrading retrieval quality. Apply strict extraction criteria: reusable, non-trivial, specific, and verified (see crystallization-cycle.md for detailed criteria).
+Not every experience deserves to become a skill. Over-extraction dilutes the skill layer, making relevant knowledge harder to find and degrading retrieval quality. Apply strict extraction criteria: reusable, non-trivial, specific, and verified (see [Crystallization Cycle](crystallization-cycle.md) for detailed criteria).
 
 ### 5.3 Maintain Constitutional Discipline
 

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 #!/usr/bin/env python3
 """
 Skill Audit Tool for the Agent Nurture Framework.
@@ -16,22 +18,74 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+# Try to import PyYAML for robust frontmatter parsing
+try:
+    import yaml
+    _YAML_AVAILABLE = True
+except ImportError:
+    _YAML_AVAILABLE = False
+
 
 # ---------------------------------------------------------------------------
 # Parsing helpers
 # ---------------------------------------------------------------------------
 
-def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
-    """Extract YAML-like frontmatter (between --- delimiters) and body."""
+def _parse_frontmatter_yaml_fallback(text: str) -> tuple[dict[str, Any], str]:
+    """Fallback frontmatter parser: line-by-line with multi-line value support."""
     match = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)", text, re.DOTALL)
     if not match:
         return {}, text
+
     meta: dict[str, Any] = {}
-    for line in match.group(1).splitlines():
-        if ":" in line:
-            key, value = line.split(":", 1)
-            meta[key.strip()] = value.strip().strip('"').strip("'")
+    current_key: str | None = None
+    current_value: str = ""
+    lines = match.group(1).splitlines()
+
+    for line in lines:
+        # Check if this line starts a new key: value pair
+        key_match = re.match(r"^([a-zA-Z_][a-zA-Z0-9_-]*)\s*:\s*(.*)", line)
+        if key_match:
+            # Save the previous key's value
+            if current_key is not None:
+                meta[current_key] = current_value.strip().strip('"').strip("'")
+
+            current_key = key_match.group(1)
+            current_value = key_match.group(2)
+        elif current_key is not None:
+            # Continuation of a multi-line value
+            current_value += " " + line.strip()
+
+    # Save the last key
+    if current_key is not None:
+        meta[current_key] = current_value.strip().strip('"').strip("'")
+
     return meta, match.group(2)
+
+
+def _parse_frontmatter_yaml_lib(text: str) -> tuple[dict[str, Any], str]:
+    """Parse frontmatter using PyYAML's safe_load."""
+    match = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)", text, re.DOTALL)
+    if not match:
+        return {}, text
+    try:
+        meta = yaml.safe_load(match.group(1))
+        if not isinstance(meta, dict):
+            return {}, text
+        return meta, match.group(2)
+    except yaml.YAMLError:
+        return _parse_frontmatter_yaml_fallback(text)
+
+
+def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    """Extract YAML frontmatter (between --- delimiters) and body.
+
+    Uses PyYAML's safe_load if available for robust parsing, otherwise
+    falls back to a line-by-line parser that handles multi-line values,
+    colons inside values (e.g. URLs), and list values.
+    """
+    if _YAML_AVAILABLE:
+        return _parse_frontmatter_yaml_lib(text)
+    return _parse_frontmatter_yaml_fallback(text)
 
 
 def discover_skills(skill_dir: Path) -> list[Path]:
@@ -204,7 +258,7 @@ def format_markdown(report: dict[str, Any]) -> str:
     lines.append(f"\nGenerated: {report['generated_at']}")
     lines.append(f"\n## Summary")
     lines.append(f"- **Total skills:** {report['total_skills']}")
-    lines.append(f"- **Average quality score:** {report['average_score']}/10")
+    lines.append(f"- **Average quality score:** {report['average_score']}/5")
     lines.append(f"- **Categories:** {len(report['categories'])}")
 
     if report["categories"]:
@@ -316,7 +370,7 @@ def main() -> None:
         md_path.write_text(md_content, encoding="utf-8")
         print(f"Markdown report written to {md_path}")
 
-    print(f"\nSummary: {report['total_skills']} skills, average score {report['average_score']}/10")
+    print(f"\nSummary: {report['total_skills']} skills, average score {report['average_score']}/5")
 
 
 if __name__ == "__main__":

@@ -54,7 +54,7 @@ The Knowledge Crystallization Cycle (KCC) is the central developmental mechanism
 
 4. **Grounded Application**: Crystallized knowledge is deployed in active service, generating new experiential data that confirms, refines, or challenges existing crystallized patterns.
 
-This cycle is operationalized through the formal model defined in the framework document (see framework.md, Section 2.1).
+This cycle is operationalized through the formal model defined in the [Framework](framework.md) document (Section 2.1).
 
 ### 2.4 Three-Layer Cognitive Architecture
 
@@ -66,7 +66,7 @@ NFD proposes a three-layer architecture for organizing agent knowledge, each lay
 
 3. **Experiential Layer**: The raw, context-rich records of specific interactions and observations. Analogous to episodic memory in human cognition.
 
-This architecture is detailed fully in the knowledge architecture document (see knowledge-architecture.md).
+This architecture is detailed fully in the [Knowledge Architecture](knowledge-architecture.md) document.
 
 ---
 
@@ -202,7 +202,7 @@ The RKC framework demonstrated three critical properties:
 
 ### 6.2 From SKILL.md to Three-Layer Architecture
 
-The original RKC framework's single-file approach, while effective for focused domains (e.g., Kaggle competitions), encounters scalability limitations when applied to broader domains. The ANF generalizes RKC's insight by replacing the monolithic SKILL.md with the three-layer cognitive architecture:
+The original RKC framework's single-file approach, while effective for focused domains (e.g., focused domain challenges), encounters scalability limitations when applied to broader domains. The ANF generalizes RKC's insight by replacing the monolithic SKILL.md with the three-layer cognitive architecture:
 
 - The constitutional layer replaces the header section of SKILL.md (role definition, principles).
 - The skill layer replaces the body of SKILL.md (domain-specific knowledge) as a collection of modular documents.

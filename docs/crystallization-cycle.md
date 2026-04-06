@@ -132,7 +132,7 @@ Structure:
 
 **Objective**: Systematically extract, structure, and validate patterns from the experiential corpus, producing durable knowledge assets for the skill layer.
 
-**Description**: Deliberate crystallization is the transformative operation at the heart of the KCC. It converts raw experiential data into structured, generalizable, and validated knowledge. This phase occurs in the surgical workspace (see framework.md, Section 3.1) with full access to the experiential corpus and human-in-the-loop validation.
+**Description**: Deliberate crystallization is the transformative operation at the heart of the KCC. It converts raw experiential data into structured, generalizable, and validated knowledge. This phase occurs in the surgical workspace (see [Framework](framework.md), Section 3.1) with full access to the experiential corpus and human-in-the-loop validation.
 
 Deliberate crystallization consists of five sub-operations executed sequentially:
 
@@ -149,7 +149,7 @@ Pattern extraction produces a candidate set of patterns, each with supporting ev
 
 #### Sub-operation (b): Knowledge Structuring
 
-Extracted patterns are organized into the skill document format (see knowledge-architecture.md, Section 3.3). This structuring operation transforms informal pattern descriptions into formalized knowledge assets with:
+Extracted patterns are organized into the skill document format (see [Knowledge Architecture](knowledge-architecture.md), Section 3.3). This structuring operation transforms informal pattern descriptions into formalized knowledge assets with:
 
 - Clear applicability conditions defining when the skill is relevant.
 - Structured procedures describing how to apply the knowledge.
@@ -204,76 +204,36 @@ Validated knowledge assets are integrated into the skill layer with:
 
 ## 3. Formal Model
 
-This section presents the formal model underlying the Knowledge Crystallization Cycle, providing precise definitions and propositions that characterize the cycle's behavior and guarantees.
+The formal model uses the definitions established in [Framework](framework.md) Section 2.1. Below we provide extended interpretation specific to the crystallization cycle.
 
-### Definition 1: Agent Knowledge State
+### Agent Knowledge State (Definition 1)
 
-At any discrete time step $t$, the agent's knowledge is characterized by:
+The triple $K_t = (C_t, S_t, E_t)$ captures the complete cognitive state of the agent. The constitutional layer provides behavioral orientation, the skill layer provides domain competence, and the experiential layer provides the raw material for ongoing development. The separation into three layers enables differentiated management strategies appropriate to each layer's characteristics.
 
-$$K_t = (C_t, S_t, E_t)$$
+### Experiential Accumulation (Definition 2)
 
-where $C_t$ denotes the Constitutional Layer (stable behavioral principles and capability indices), $S_t$ denotes the Skill Layer (modular domain-specific knowledge units), and $E_t$ denotes the Experiential Layer (raw accumulated interaction records).
+The accumulation operation has important properties for the KCC:
 
-**Interpretation**: This triple captures the complete cognitive state of the agent. The constitutional layer provides behavioral orientation, the skill layer provides domain competence, and the experiential layer provides the raw material for ongoing development. The separation into three layers enables differentiated management strategies appropriate to each layer's characteristics.
-
-### Definition 2: Experiential Accumulation
-
-Through each interaction turn $I_t$, the experience extraction function $\delta$ produces a structured record that is appended to the experiential layer:
-
-$$E_{t+1} = E_t \cup \{\delta(I_t)\}$$
-
-where $\delta: I \to E$ maps a conversational interaction to a structured experiential record containing decisions, reasoning traces, outcomes, and contextual annotations as described in Phase 2.
-
-**Properties**:
 - The accumulation operation is monotonic: $|E_{t+1}| \geq |E_t|$ (prior to crystallization).
 - Each record is immutable after creation; corrections produce new records rather than modifying existing ones.
 - The extraction function $\delta$ is configurable per domain, enabling adaptation to different experiential recording requirements.
 
-### Definition 3: Knowledge Crystallization
+### Knowledge Crystallization (Definition 3)
 
-At crystallization checkpoint $\tau$, the crystallization operator $\kappa$ transforms the knowledge state:
+Crystallization reduces the volume of raw experiential data while increasing the structural quality of skill knowledge. This is the fundamental trade-off at the heart of the KCC: raw experience is consumed to produce structured knowledge. The efficiency of this conversion is measured by $\eta$ (Definition 5).
 
-$$K'_{\tau} = \kappa(K_{\tau}) = (C'_{\tau}, S'_{\tau}, E'_{\tau})$$
+### Value Function (Definition 4)
 
-subject to the constraints:
-- $|E'_{\tau}| \leq |E_{\tau}|$: Experiential data is consolidated (archived or summarized), not merely duplicated.
-- $H(S'_{\tau}) \geq H(S_{\tau})$: The structural information content of the skill layer does not decrease.
+The value function provides a scalar measure of the agent's overall knowledge quality. It balances three dimensions: the raw experiential base (breadth), the structured skill knowledge (structure), and the alignment with user needs (alignment). The weighting parameters can be adjusted to reflect domain-specific priorities---for instance, a domain requiring broad exploration may weight breadth more heavily, while a domain requiring precision may weight structure more heavily.
 
-where $H$ denotes the structural entropy function, measuring the information content, organizational quality, and retrieval efficiency of the skill layer.
+### Crystallization Efficiency (Definition 5)
 
-**Interpretation**: Crystallization reduces the volume of raw experiential data while increasing the structural quality of skill knowledge. This is the fundamental trade-off at the heart of the KCC: raw experience is consumed to produce structured knowledge. The efficiency of this conversion is measured by $\eta$ (Definition 5).
+High efficiency indicates that the crystallization operation extracted significant structural knowledge from the experiential corpus. Low efficiency indicates either insufficient experiential data (the patterns have not yet emerged) or poor crystallization execution (patterns exist but were not successfully extracted). Monitoring $\eta$ over successive crystallization cycles provides a diagnostic for the health of the developmental process.
 
-### Definition 4: Value Function
+### Non-decreasing Value (Proposition 1)
 
-The overall value of the agent's knowledge state is:
+The non-decreasing value property follows from the constraints in Definition 3:
 
-$$V(K_t) = \alpha \cdot \text{Breadth}(E_t) + \beta \cdot \text{Structure}(S_t) + \gamma \cdot \text{Align}(C_t, U)$$
-
-where:
-- $\text{Breadth}(E_t)$ measures the coverage and diversity of accumulated experiences across the domain.
-- $\text{Structure}(S_t)$ measures the organizational quality, modularity, and retrieval efficiency of the skill layer.
-- $\text{Align}(C_t, U)$ measures the alignment between constitutional principles and user $U$'s specific needs.
-- $\alpha, \beta, \gamma$ are weighting parameters reflecting operational priorities (default: $\alpha = 0.3, \beta = 0.4, \gamma = 0.3$).
-
-**Interpretation**: The value function provides a scalar measure of the agent's overall knowledge quality. It balances three dimensions: the raw experiential base (breadth), the structured skill knowledge (structure), and the alignment with user needs (alignment). The weighting parameters can be adjusted to reflect domain-specific priorities---for instance, a domain requiring broad exploration may weight breadth more heavily, while a domain requiring precision may weight structure more heavily.
-
-### Definition 5: Crystallization Efficiency
-
-The efficiency of a crystallization operation measures the structural gain per unit of experiential data consumed:
-
-$$\eta(\kappa, E) = \frac{\Delta \text{Structure}(S)}{|E_{\text{consumed}}|}$$
-
-where $\Delta \text{Structure}(S) = \text{Structure}(S'_\tau) - \text{Structure}(S_\tau)$ and $|E_{\text{consumed}}|$ is the number of experiential records consolidated during crystallization.
-
-**Interpretation**: High efficiency indicates that the crystallization operation extracted significant structural knowledge from the experiential corpus. Low efficiency indicates either insufficient experiential data (the patterns have not yet emerged) or poor crystallization execution (patterns exist but were not successfully extracted). Monitoring $\eta$ over successive crystallization cycles provides a diagnostic for the health of the developmental process.
-
-### Proposition 1: Non-decreasing Value
-
-A valid crystallization operation must satisfy:
-
-$$V(K'_{\tau}) \geq V(K_{\tau}) \quad \forall \tau$$
-
-**Proof sketch**: The non-decreasing value property follows from the constraints in Definition 3:
 - Structure does not decrease ($H(S'_\tau) \geq H(S_\tau)$), ensuring the $\beta$ term does not diminish.
 - Breadth is maintained through indexed archiving (consolidated records retain searchable metadata), ensuring the $\alpha$ term does not diminish.
 - Alignment is preserved through user-validated crystallization (all skill updates are reviewed by the user), ensuring the $\gamma$ term does not diminish.

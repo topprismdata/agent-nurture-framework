@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 #!/usr/bin/env python3
 """
 Capability Assessment Tool for the Agent Nurture Framework.
@@ -5,6 +7,9 @@ Capability Assessment Tool for the Agent Nurture Framework.
 Interactive tool that loads a capability matrix template, prompts the user for
 ratings on each dimension, calculates an overall score, and generates an
 assessment report. Supports custom dimensions via a JSON file.
+
+Uses a 1-5 Dreyfus scale:
+  1 = Novice, 2 = Advanced Beginner, 3 = Competent, 4 = Proficient, 5 = Expert
 """
 
 import argparse
@@ -14,6 +19,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+
+# Dreyfus level labels for the 1-5 scale
+DREYFUS_LABELS: dict[int, str] = {
+    1: "Novice",
+    2: "Advanced Beginner",
+    3: "Competent",
+    4: "Proficient",
+    5: "Expert",
+}
 
 # Default capability dimensions with descriptions
 DEFAULT_DIMENSIONS: list[dict[str, str]] = [
@@ -68,28 +82,28 @@ def load_dimensions(template_path: str | None) -> list[dict[str, str]]:
 
 
 def prompt_rating(dimension: dict[str, str]) -> int:
-    """Prompt the user for a rating 1-10 on one dimension."""
+    """Prompt the user for a rating 1-5 on one dimension (Dreyfus scale)."""
     name = dimension["name"]
     desc = dimension.get("description", "")
     while True:
         try:
-            raw = input(f"  {name} (1-10)")
             if desc:
-                raw = input(f"  {name} — {desc}\n  Rating (1-10): ")
+                raw = input(f"  {name} — {desc}\n  Rating (1-5, Dreyfus scale): ")
             else:
-                raw = input(f"  {name} — Rating (1-10): ")
+                raw = input(f"  {name} — Rating (1-5, Dreyfus scale): ")
             rating = int(raw.strip())
-            if 1 <= rating <= 10:
+            if 1 <= rating <= 5:
                 return rating
-            print("    Please enter a number between 1 and 10.")
+            print("    Please enter a number between 1 and 5.")
         except (ValueError, EOFError):
-            print("    Invalid input. Please enter a number between 1 and 10.")
+            print("    Invalid input. Please enter a number between 1 and 5.")
 
 
 def collect_ratings(dimensions: list[dict[str, str]]) -> list[dict[str, Any]]:
     """Collect ratings for all dimensions interactively."""
     results: list[dict[str, Any]] = []
-    print("\nRate your agent on each dimension (1 = novice, 10 = expert).\n")
+    print("\nRate your agent on each dimension using the Dreyfus scale:")
+    print("  1 = Novice, 2 = Advanced Beginner, 3 = Competent, 4 = Proficient, 5 = Expert\n")
     for dim in dimensions:
         rating = prompt_rating(dim)
         note = input(f"  Notes (optional, press Enter to skip): ").strip()
@@ -109,16 +123,9 @@ def compute_scores(results: list[dict[str, Any]]) -> dict[str, Any]:
         (sum((r - avg) ** 2 for r in ratings) / len(ratings)) ** 0.5, 2
     ) if ratings else 0
 
-    if avg >= 8:
-        level = "Expert"
-    elif avg >= 6:
-        level = "Proficient"
-    elif avg >= 4:
-        level = "Competent"
-    elif avg >= 2:
-        level = "Advanced Beginner"
-    else:
-        level = "Novice"
+    # Map average to closest Dreyfus level (1-5)
+    level_idx = max(1, min(5, round(avg)))
+    level = DREYFUS_LABELS[level_idx]
 
     return {
         "average": avg,
@@ -135,30 +142,31 @@ def format_report(results: list[dict[str, Any]], scores: dict[str, Any]) -> str:
     lines.append("# Capability Assessment Report\n")
     lines.append(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
     lines.append("## Overall Score\n")
-    lines.append(f"- **Average:** {scores['average']}/10")
+    lines.append(f"- **Average:** {scores['average']}/5")
     lines.append(f"- **Range:** {scores['min']} — {scores['max']}")
     lines.append(f"- **Std Deviation:** {scores['std_dev']}")
     lines.append(f"- **Dreyfus Level:** {scores['level']}\n")
     lines.append("## Dimension Details\n")
-    lines.append("| Dimension | Rating | Notes |")
-    lines.append("|-----------|--------|-------|")
+    lines.append("| Dimension | Rating | Dreyfus Level | Notes |")
+    lines.append("|-----------|--------|---------------|-------|")
     for r in results:
         notes = r.get("notes", "").replace("|", "/") or "—"
-        lines.append(f"| {r['name']} | {r['rating']} | {notes} |")
+        dreyfus = DREYFUS_LABELS.get(r["rating"], "Unknown")
+        lines.append(f"| {r['name']} | {r['rating']} | {dreyfus} | {notes} |")
     lines.append("")
     lines.append("## Recommendations\n")
-    weak = [r for r in results if r["rating"] <= 4]
+    weak = [r for r in results if r["rating"] <= 2]
     if weak:
         lines.append("### Priority Improvement Areas\n")
         for r in weak:
-            lines.append(f"- **{r['name']}** (scored {r['rating']}/10)")
+            lines.append(f"- **{r['name']}** (scored {r['rating']}/5 — {DREYFUS_LABELS.get(r['rating'], '')})")
             if r.get("notes"):
                 lines.append(f"  - Notes: {r['notes']}")
-    strong = [r for r in results if r["rating"] >= 8]
+    strong = [r for r in results if r["rating"] >= 4]
     if strong:
         lines.append("\n### Strengths to Leverage\n")
         for r in strong:
-            lines.append(f"- **{r['name']}** (scored {r['rating']}/10)")
+            lines.append(f"- **{r['name']}** (scored {r['rating']}/5 — {DREYFUS_LABELS.get(r['rating'], '')})")
     if not weak and not strong:
         lines.append("All dimensions are in the mid-range. Consider focusing on domain-specific scenarios to push specific dimensions higher.")
     return "\n".join(lines)
@@ -203,15 +211,18 @@ def main() -> None:
 
     if args.non_interactive:
         lines = ["# Capability Assessment Template\n"]
-        lines.append("Rate each dimension from 1 (novice) to 10 (expert).\n")
+        lines.append("Rate each dimension from 1 to 5 using the Dreyfus scale:")
+        lines.append("1 = Novice, 2 = Advanced Beginner, 3 = Competent, 4 = Proficient, 5 = Expert\n")
         lines.append("| Dimension | Description | Rating | Notes |")
         lines.append("|-----------|-------------|--------|-------|")
         for d in dimensions:
             lines.append(f"| {d['name']} | {d.get('description', '')} | | |")
-        Path("./capability-assessment-template.md").write_text(
+        base = args.output or "./capability-assessment-template"
+        template_path = Path(f"{base}.md")
+        template_path.write_text(
             "\n".join(lines), encoding="utf-8"
         )
-        print("Blank template written to ./capability-assessment-template.md")
+        print(f"Blank template written to {template_path}")
         return
 
     # Interactive assessment
@@ -236,7 +247,7 @@ def main() -> None:
     md_path.write_text(report_md, encoding="utf-8")
 
     print(f"\n{'=' * 50}")
-    print(f"  Overall Score: {scores['average']}/10  —  Level: {scores['level']}")
+    print(f"  Overall Score: {scores['average']}/5  —  Level: {scores['level']}")
     print(f"{'=' * 50}")
     print(f"\nReports saved to {json_path} and {md_path}")
 

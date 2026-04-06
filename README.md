@@ -39,10 +39,14 @@ Based on [Nurture-First Development (NFD)](https://arxiv.org/abs/2603.10808) the
 
 ### 1. Set up your workspace
 
+The `templates/bootstrap-config/` directory contains reference documents describing the recommended workspace structure and configuration patterns. It is not a ready-to-use scaffold -- instead, review [workspace-structure.md](templates/bootstrap-config/workspace-structure.md) to understand the directory layout, then create your own workspace following the described structure.
+
 ```bash
-# Use the provided template structure
-cp -r templates/bootstrap-config/ my-agent/
-cd my-agent
+# Review the workspace structure reference
+cat templates/bootstrap-config/workspace-structure.md
+
+# Create your workspace following the reference structure
+mkdir -p my-agent && cd my-agent
 ```
 
 ### 2. Define your agent's identity
@@ -191,6 +195,10 @@ Please feel free to:
 ## References
 
 See [references/bibliography.md](references/bibliography.md) for the complete list of cited works.
+
+## Acknowledgments
+
+This framework builds on foundational work in knowledge management, skill acquisition theory, and agent architectures. See [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) for a full list of contributions.
 
 ## License
 

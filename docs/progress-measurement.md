@@ -219,8 +219,8 @@ Periodic capability assessments ensure the agent is progressing along the intend
 
 **Steps:**
 
-1. **Complete capability matrix assessment.** Use the full template (`templates/capability-matrix-template.md`). Rate each dimension with specific evidence.
-2. **Conduct consolidation audit.** Use the consolidation audit template (`templates/consolidation-audit-template.md`). Identify fragmentation and merge candidates.
+1. **Complete capability matrix assessment.** Use the full template ([Capability Matrix Template](../templates/capability-matrix-template.md)). Rate each dimension with specific evidence.
+2. **Conduct consolidation audit.** Use the consolidation audit template ([Consolidation Audit Template](../templates/consolidation-audit-template.md)). Identify fragmentation and merge candidates.
 3. **Run crystallization session.** Extract new skills from the past month's experience.
 4. **Calculate value function coefficients.** Estimate alpha, beta, and gamma based on the current lifecycle phase. Assess whether the knowledge strategy aligns with the current priorities.
 5. **Compare to previous assessment.** Track changes in ratings, skill counts, and efficiency indicators over time.

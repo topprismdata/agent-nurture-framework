@@ -248,7 +248,7 @@ Upward flow refers to the consolidation of lower-layer data into higher-layer kn
 
 **Skill to Constitutional (Rare)**: When skill-level knowledge proves stable across multiple domains and crystallization cycles, it may be generalized into constitutional principles. This occurs infrequently---typically once every few months---and requires cross-domain validation. For example, a debugging skill specific to Python that proves equally effective for Rust debugging may be abstracted into a general "systematic debugging" principle in the constitutional layer.
 
-**Crystallization Constraints**: Upward flow is governed by the non-decreasing value proposition (Proposition 1, framework.md): every crystallization must maintain or improve the overall knowledge value. This constrains crystallization operations to produce validated, structured knowledge that genuinely enhances the agent's capability.
+**Crystallization Constraints**: Upward flow is governed by the non-decreasing value proposition (Proposition 1, [Framework](framework.md)): every crystallization must maintain or improve the overall knowledge value. This constrains crystallization operations to produce validated, structured knowledge that genuinely enhances the agent's capability.
 
 ### 5.3 Lateral Flow (Memory-Mediated Coordination)
 

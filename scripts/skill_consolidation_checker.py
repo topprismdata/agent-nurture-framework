@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 #!/usr/bin/env python3
 """
 Skill Consolidation Checker for the Agent Nurture Framework.
@@ -16,22 +18,74 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+# Try to import PyYAML for robust frontmatter parsing
+try:
+    import yaml
+    _YAML_AVAILABLE = True
+except ImportError:
+    _YAML_AVAILABLE = False
+
 
 # ---------------------------------------------------------------------------
 # Parsing helpers
 # ---------------------------------------------------------------------------
 
-def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
-    """Extract YAML-like frontmatter and body."""
+def _parse_frontmatter_yaml_fallback(text: str) -> tuple[dict[str, Any], str]:
+    """Fallback frontmatter parser: line-by-line with multi-line value support."""
     match = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)", text, re.DOTALL)
     if not match:
         return {}, text
+
     meta: dict[str, Any] = {}
-    for line in match.group(1).splitlines():
-        if ":" in line:
-            key, value = line.split(":", 1)
-            meta[key.strip()] = value.strip().strip('"').strip("'")
+    current_key: str | None = None
+    current_value: str = ""
+    lines = match.group(1).splitlines()
+
+    for line in lines:
+        # Check if this line starts a new key: value pair
+        key_match = re.match(r"^([a-zA-Z_][a-zA-Z0-9_-]*)\s*:\s*(.*)", line)
+        if key_match:
+            # Save the previous key's value
+            if current_key is not None:
+                meta[current_key] = current_value.strip().strip('"').strip("'")
+
+            current_key = key_match.group(1)
+            current_value = key_match.group(2)
+        elif current_key is not None:
+            # Continuation of a multi-line value
+            current_value += " " + line.strip()
+
+    # Save the last key
+    if current_key is not None:
+        meta[current_key] = current_value.strip().strip('"').strip("'")
+
     return meta, match.group(2)
+
+
+def _parse_frontmatter_yaml_lib(text: str) -> tuple[dict[str, Any], str]:
+    """Parse frontmatter using PyYAML's safe_load."""
+    match = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)", text, re.DOTALL)
+    if not match:
+        return {}, text
+    try:
+        meta = yaml.safe_load(match.group(1))
+        if not isinstance(meta, dict):
+            return {}, text
+        return meta, match.group(2)
+    except yaml.YAMLError:
+        return _parse_frontmatter_yaml_fallback(text)
+
+
+def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    """Extract YAML frontmatter and body.
+
+    Uses PyYAML's safe_load if available for robust parsing, otherwise
+    falls back to a line-by-line parser that handles multi-line values,
+    colons inside values (e.g. URLs), and list values.
+    """
+    if _YAML_AVAILABLE:
+        return _parse_frontmatter_yaml_lib(text)
+    return _parse_frontmatter_yaml_fallback(text)
 
 
 def discover_skills(skill_dir: Path) -> list[Path]:
@@ -93,8 +147,15 @@ def load_skill_tokens(filepath: Path) -> dict[str, Any]:
 
 def compute_similarity_matrix(
     skills: list[dict[str, Any]],
+    desc_weight: float = 0.4,
+    body_weight: float = 0.6,
 ) -> list[dict[str, Any]]:
-    """Compute pairwise similarity and return sorted list of pairs."""
+    """Compute pairwise similarity and return sorted list of pairs.
+
+    *desc_weight* and *body_weight* control how the description and body
+    similarities are combined. They should sum to 1.0. Defaults are
+    0.4 for description and 0.6 for body.
+    """
     pairs: list[dict[str, Any]] = []
     n = len(skills)
     for i in range(n):
@@ -102,7 +163,7 @@ def compute_similarity_matrix(
             a, b = skills[i], skills[j]
             desc_sim = jaccard(a["desc_tokens"], b["desc_tokens"])
             body_sim = jaccard(a["body_tokens"], b["body_tokens"])
-            combined = round(0.4 * desc_sim + 0.6 * body_sim, 4)
+            combined = round(desc_weight * desc_sim + body_weight * body_sim, 4)
             if combined > 0.05:  # filter out trivial similarity
                 pairs.append(
                     {
@@ -170,6 +231,8 @@ def format_markdown(
     clusters: list[list[str]],
     merges: list[dict[str, Any]],
     total_skills: int,
+    desc_weight: float = 0.4,
+    body_weight: float = 0.6,
 ) -> str:
     lines: list[str] = []
     lines.append("# Skill Consolidation Report\n")
@@ -177,6 +240,7 @@ def format_markdown(
     lines.append(f"- **Similarity pairs found:** {len(pairs)}")
     lines.append(f"- **Clusters detected:** {len(clusters)}")
     lines.append(f"- **Merge recommendations:** {len(merges)}")
+    lines.append(f"- **Similarity weights:** description={desc_weight}, body={body_weight}")
 
     if merges:
         lines.append("\n## Merge / Review Recommendations\n")
@@ -237,6 +301,20 @@ def main() -> None:
         help="Similarity threshold for clustering (default: 0.3)",
     )
     parser.add_argument(
+        "--desc-weight",
+        type=float,
+        default=0.4,
+        help="Weight for description similarity in combined score (default: 0.4). "
+        "Should sum with --body-weight to 1.0.",
+    )
+    parser.add_argument(
+        "--body-weight",
+        type=float,
+        default=0.6,
+        help="Weight for body similarity in combined score (default: 0.6). "
+        "Should sum with --desc-weight to 1.0.",
+    )
+    parser.add_argument(
         "--output",
         type=str,
         default=None,
@@ -262,10 +340,22 @@ def main() -> None:
         print("Need at least 2 skill files to check consolidation.", file=sys.stderr)
         sys.exit(0)
 
+    desc_weight = args.desc_weight
+    body_weight = args.body_weight
+
+    # Warn if weights don't sum to ~1.0
+    weight_sum = desc_weight + body_weight
+    if abs(weight_sum - 1.0) > 0.01:
+        print(
+            f"Warning: similarity weights sum to {weight_sum:.2f}, expected 1.0. "
+            "Results may be skewed.",
+            file=sys.stderr,
+        )
+
     print(f"Analysing {len(skill_files)} skill(s) in {skill_dir} ...")
 
     skills = [load_skill_tokens(fp) for fp in skill_files]
-    pairs = compute_similarity_matrix(skills)
+    pairs = compute_similarity_matrix(skills, desc_weight=desc_weight, body_weight=body_weight)
     clusters = find_clusters(skills, pairs, threshold=args.cluster_threshold)
     merges = generate_merge_recommendations(pairs, threshold=args.threshold)
 
@@ -273,6 +363,8 @@ def main() -> None:
         "total_skills": len(skills),
         "similarity_threshold": args.threshold,
         "cluster_threshold": args.cluster_threshold,
+        "desc_weight": desc_weight,
+        "body_weight": body_weight,
         "pairs": pairs,
         "clusters": clusters,
         "merge_recommendations": merges,
@@ -285,7 +377,8 @@ def main() -> None:
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"JSON report written to {json_path}")
 
-    md_content = format_markdown(pairs, clusters, merges, len(skills))
+    md_content = format_markdown(pairs, clusters, merges, len(skills),
+                                  desc_weight=desc_weight, body_weight=body_weight)
     md_path.write_text(md_content, encoding="utf-8")
     print(f"Markdown report written to {md_path}")
 

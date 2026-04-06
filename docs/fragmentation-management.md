@@ -68,7 +68,7 @@ The audit phase identifies fragmentation without attempting to fix it. Its purpo
 
 4. **Calculate overlap metrics.** For each cluster, compute pairwise similarity between skill descriptions and solution content using Jaccard similarity. Pairs above 0.3 warrant review; pairs above 0.5 are strong merge candidates.
 
-5. **Produce an audit report.** Summarize findings in the consolidation audit template (see `templates/consolidation-audit-template.md`).
+5. **Produce an audit report.** Summarize findings in the consolidation audit template (see [Consolidation Audit Template](../templates/consolidation-audit-template.md)).
 
 **Output:** A prioritized list of clusters to consolidate, with specific merge recommendations.
 
