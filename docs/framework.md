@@ -199,6 +199,64 @@ The Agent Nurture Framework is not universally applicable. Drawing on the NFD an
 
 When fewer than three of these conditions hold, a simpler Prompt-First or Code-First approach may be more cost-effective.
 
+### 2.4 Interaction Modes
+
+The nature of the operator-agent relationship varies depending on the distribution of expertise and the domain's maturity. The framework recognizes three interaction modes, each grounded in distinct theoretical foundations and each affecting the operation of the Five-Stage Learning Loop differently. For the full theoretical treatment, see [Theoretical Foundations](theoretical-foundations.md), Section 4.4.
+
+#### Apprenticeship Mode
+
+In apprenticeship mode, the operator possesses established domain expertise that the agent must acquire. Knowledge flows primarily from operator to agent, corresponding to Type A (operator-originated) knowledge in the Bidirectional Knowledge Flow model (see [Crystallization Cycle](crystallization-cycle.md), Section 7). This mode is grounded in the SECI model (Nonaka & Takeuchi, 1995) and cognitive apprenticeship theory (Collins et al., 1989).
+
+**When to use**:
+- The operator has deep, well-established domain expertise.
+- The domain has clear best practices and established methodologies.
+- The primary goal is for the agent to replicate the operator's judgment patterns.
+
+**Effect on the Five-Stage Learning Loop**:
+- **Study**: The agent learns from the operator's explicit instruction, demonstrations, and explanations. The operator drives the curriculum.
+- **Verify**: The agent validates its understanding against the operator's expectations and corrections.
+- **Extract**: Crystallization focuses on operator-originated patterns. All knowledge assets undergo Type A validation (operator confirms accuracy).
+
+#### Co-Discovery Mode
+
+In co-discovery mode, neither party fully possesses the relevant knowledge; both are exploring a domain together. Knowledge is co-emergent (Type C), arising from the interaction between operator and agent. This mode is grounded in Lave and Wenger's (1991) Communities of Practice theory, where the operator and agent form a community that co-constructs knowledge through collaborative practice.
+
+**When to use**:
+- The domain is novel, rapidly evolving, or genuinely exploratory.
+- Neither the operator nor standard references provide authoritative answers.
+- The primary goal is joint exploration and knowledge creation.
+
+**Effect on the Five-Stage Learning Loop**:
+- **Study**: Both parties research and share findings collaboratively. The agent contributes systematic analysis and cross-domain analogies.
+- **Verify**: Both parties design experiments and validate hypotheses together. The agent's analytical capabilities complement the operator's intuition.
+- **Extract**: Crystallization focuses on co-emergent insights. Knowledge assets undergo Type C validation (both parties verify the insight independently).
+
+#### Hybrid Mode
+
+In hybrid mode, the operator possesses adjacent expertise that is relevant but not directly applicable to the current domain. Knowledge flows are bidirectional: the operator provides domain intuition and strategic judgment (Type A), while the agent contributes systematic analysis and cross-domain transfer (Type B), producing co-emergent insights (Type C). This mode combines the apprenticeship and co-discovery perspectives.
+
+**When to use**:
+- The operator has expertise in a related domain.
+- The agent brings complementary analytical or cross-domain capabilities.
+- The domain benefits from both established wisdom and novel exploration.
+
+**Effect on the Five-Stage Learning Loop**:
+- **Study**: The operator provides domain context and strategic framing; the agent contributes systematic literature review and cross-domain pattern matching.
+- **Verify**: The operator evaluates strategic soundness while the agent verifies technical correctness.
+- **Extract**: Crystallization incorporates all three knowledge origin types (A, B, C). Self-generated patterns (Category 7 experiential records) receive particular attention, as the agent's independent discoveries may reveal blind spots in the operator's adjacent expertise.
+
+#### Mode Selection and Transitions
+
+The interaction mode should be selected at the outset of the nurturing relationship based on the operator's expertise profile and the domain's characteristics. Many effective operator-agent partnerships transition through modes as the agent matures:
+
+| Development Phase | Typical Mode | Rationale |
+|-------------------|-------------|-----------|
+| Phase 0--1 (Bootstrap/Initial) | Apprenticeship | The agent lacks the foundational knowledge to contribute meaningfully to co-discovery. |
+| Phase 2 (Structured) | Hybrid | The agent has developed sufficient domain understanding to contribute complementary perspectives. |
+| Phase 3+ (Mature) | Co-Discovery | The agent operates as a genuine cognitive partner, and the relationship evolves toward mutual knowledge creation. |
+
+This natural progression mirrors the legitimate peripheral participation trajectory described by Lave and Wenger (1991): the agent enters the community of practice at the periphery and gradually moves toward core participation. Mode transitions should be deliberate, discussed between operator and agent, and reflected in updated constitutional layer documentation.
+
 ---
 
 ## 3. Operational Framework
@@ -348,6 +406,7 @@ The quality of crystallization is bounded by the quality of experiential records
 - Collins, A., Brown, J. S., & Newman, S. E. (1989). Cognitive Apprenticeship: Teaching the Craft of Reading, Writing, and Mathematics. In L. B. Resnick (Ed.), *Knowing, Learning, and Instruction: Essays in Honor of Robert Glaser*. Lawrence Erlbaum Associates.
 - Dreyfus, H. L., & Dreyfus, S. E. (1986). *Mind over Machine: The Power of Human Intuition and Expertise in the Era of the Computer*. Free Press.
 - Kolb, D. A. (1984). *Experiential Learning: Experience as the Source of Learning and Development*. Prentice-Hall.
+- Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press.
 - Nonaka, I., & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press.
 - Polanyi, M. (1966). *The Tacit Dimension*. Doubleday.
 - Zhang, K. (2026). Nurture-First Development: A Knowledge Crystallization Approach to Domain-Specific AI Agent Development. *arXiv preprint arXiv:2603.10808*.

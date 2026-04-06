@@ -128,6 +128,29 @@ Structure:
   timestamp: When the insight was recorded
 ```
 
+#### Category 7: Self-Generated Patterns
+
+Self-generated patterns capture regularities discovered by the agent's own reasoning processes, independent of explicit operator instruction. These patterns originate from the agent's capacity for trial-and-error exploration, cross-domain transfer, and meta-cognitive reflection. Unlike other experiential record types, which primarily document knowledge transferred from the operator, self-generated patterns represent **agent-originated knowledge** (Type B in the Bidirectional Knowledge Flow model; see Section 8).
+
+```
+Structure:
+  pattern: The regularity or principle discovered by the agent
+  discovery_method: How the pattern was found (trial-and-error, cross-domain-transfer, meta-cognitive)
+  supporting_evidence: References to specific experiences that led to the discovery
+  agent_confidence: The agent's assessed confidence level
+  operator_status: Pending review / Confirmed / Rejected
+  novelty_assessment: Whether this pattern is new or already known to the operator
+  timestamp: When the pattern was generated
+```
+
+**Discovery Methods**:
+
+- **Trial-and-error**: The agent attempted multiple approaches during task execution and independently identified a superior strategy.
+- **Cross-domain transfer**: The agent recognized structural similarities between problems in different domains and applied a pattern from one domain to another.
+- **Meta-cognitive reflection**: The agent observed patterns in its own reasoning processes---for example, recognizing that a certain class of problems consistently benefits from decomposition.
+
+Self-generated patterns follow a distinct validation flow: the agent proposes the pattern, and the operator confirms both its novelty (is this genuinely new knowledge?) and its usefulness (does it improve operational outcomes?). See Section 8 for the complete bidirectional validation framework.
+
 ### Phase 3: Deliberate Crystallization
 
 **Objective**: Systematically extract, structure, and validate patterns from the experiential corpus, producing durable knowledge assets for the skill layer.
@@ -390,7 +413,201 @@ The knowledge must have been empirically validated: the proposed solution must h
 
 ---
 
-## 7. Anti-Patterns to Avoid
+## 7. Bidirectional Knowledge Flow
+
+The original formulation of the Knowledge Crystallization Cycle models knowledge flow as unidirectional: from operator to agent. The operator possesses expertise, which is transferred to the agent through conversational immersion and crystallized into structured knowledge. While this model captures the primary direction of knowledge transfer in apprenticeship-like relationships, it understates the agent's capacity for independent discovery and the co-emergent nature of certain insights.
+
+This section introduces a more nuanced model that recognizes three types of knowledge origin, each with distinct validation requirements.
+
+### 7.1 Knowledge Origin Taxonomy
+
+**Type A: Operator-Originated Knowledge**
+
+Knowledge that originates from the operator's explicit instruction, tacit knowledge transfer through demonstration, or correction of the agent's behavior. This is the traditional knowledge flow assumed by the KCC.
+
+- **Source**: The operator's established expertise.
+- **Transfer mechanism**: Conversational immersion, direct instruction, correction feedback.
+- **Examples**: A senior engineer explaining why a particular code pattern is preferred; a physician describing their diagnostic reasoning process; a lawyer pointing out a standard contract clause.
+
+**Type B: Agent-Originated Knowledge**
+
+Knowledge that originates from the agent's own reasoning processes, independent of explicit operator instruction. The agent discovers patterns through trial-and-error exploration, cross-domain transfer, or meta-cognitive observation.
+
+- **Source**: The agent's independent reasoning and experimentation.
+- **Transfer mechanism**: Trial-and-error during task execution, analogical reasoning across domains, reflection on own reasoning patterns.
+- **Examples**: The agent independently discovers that a certain class of problems benefits from a decomposition strategy it developed; the agent transfers a debugging heuristic from one programming language to another; the agent identifies a meta-pattern in how it approaches certain problem types.
+
+**Type C: Co-Emergent Knowledge**
+
+Knowledge that emerges from the interaction between operator and agent, which neither party possessed in isolation. This type of knowledge is characteristic of co-discovery modes of collaboration (see [Framework](framework.md), Section 2.4, Interaction Modes).
+
+- **Source**: The dynamic interplay of operator and agent reasoning.
+- **Transfer mechanism**: Collaborative exploration, dialectical reasoning, joint problem-solving.
+- **Examples**: Through a back-and-forth discussion, the operator and agent jointly develop a novel approach that neither would have arrived at independently; the agent's partial insight combines with the operator's domain knowledge to produce a new understanding.
+
+### 7.2 Validation Flow by Knowledge Origin Type
+
+Each knowledge origin type requires a distinct validation flow during the crystallization process:
+
+| Origin Type | Validation Flow | Key Question |
+|-------------|----------------|--------------|
+| **Type A** (Operator-originated) | Operator confirms accuracy of crystallized knowledge | "Does this faithfully represent my expertise?" |
+| **Type B** (Agent-originated) | Agent proposes pattern; operator confirms novelty and usefulness | "Is this genuinely new, and is it operationally valuable?" |
+| **Type C** (Co-emergent) | Both parties verify the insight is genuine and not an artifact of interaction dynamics | "Would this insight hold outside our specific interaction context?" |
+
+**Type A Validation** follows the standard crystallization flow described in Section 3 (Phase 3): the operator reviews candidate patterns extracted from experiential data and validates that they accurately represent the transferred knowledge.
+
+**Type B Validation** extends the standard flow with an additional novelty check. When the agent identifies a self-generated pattern (Category 7 experiential record), the crystallization process must determine:
+
+1. **Novelty**: Is this pattern genuinely new, or does it reflect knowledge the operator already possessed but had not yet articulated? If the operator recognizes the pattern as already-known knowledge, it is reclassified as Type A and validated accordingly.
+2. **Usefulness**: Does the pattern improve operational outcomes when applied? Agent-originated patterns must demonstrate practical value, not merely theoretical interest.
+3. **Generalizability**: Does the pattern extend beyond the specific context in which it was discovered? The standard extraction quality criteria (Section 6) apply.
+
+**Type C Validation** requires the most rigorous scrutiny. Co-emergent knowledge must be verified by both parties independently:
+
+1. **Operator verification**: The operator assesses whether the insight is consistent with their domain understanding and whether they could have arrived at it without the agent's contribution.
+2. **Agent verification**: The agent checks whether the insight is supported by evidence beyond the specific interaction in which it emerged.
+3. **External validation**: Where possible, co-emergent insights should be tested against independent data or applied in new contexts to confirm their robustness.
+
+### 7.3 Impact on the Crystallization Algorithm
+
+The bidirectional knowledge flow model extends the KNOWLEDGE-CRYSTALLIZE algorithm (Section 4) by modifying the pattern extraction and validation steps:
+
+- **Line 2** (ExtractPatterns): In addition to frequency analysis, outcome correlation, error clustering, and insight convergence, the extraction step now includes **agent-originated pattern detection**, which identifies patterns proposed by the agent in Category 7 records.
+- **Line 3** (HumanReview): The review step is now bifurcated based on knowledge origin type. Type A patterns undergo standard accuracy review. Type B patterns undergo novelty-and-usefulness review. Type C patterns undergo bilateral verification.
+- **Line 8** (Validate): The validation step incorporates origin-type-specific checks, including the Crystallization Gates defined in Section 8.
+
+### 7.4 Implications for Session Review
+
+The bidirectional model introduces new considerations for session review (see [Session Review Template](../templates/session-review-template.md)):
+
+- **Knowledge Origin field**: Each skill candidate should be annotated with its knowledge origin type (A, B, or C), enabling differentiated processing during crystallization.
+- **Self-Generated Insights section**: A dedicated section for recording agent-originated discoveries that may warrant crystallization.
+- **Evidence Count field**: Tracking the number of independent observations supporting a candidate pattern, which is critical for the Crystallization Gates (Section 8).
+
+---
+
+## 8. Crystallization Gates
+
+The Validate(k, E_t) function in the crystallization algorithm (Section 4, line 8) performs a critical quality-control role: it determines whether a candidate knowledge asset meets the standard for integration into the skill layer. This section defines explicit quantitative gates that the validation function must enforce.
+
+Crystallization gates serve as objective checkpoints that prevent premature or low-quality crystallization, complementing the qualitative extraction criteria defined in Section 6.
+
+### 8.1 Five Rejection Criteria
+
+A candidate knowledge asset is **rejected** from crystallization if it triggers any of the following five conditions:
+
+**Criterion R1: Insufficient Evidence**
+
+The pattern has been observed fewer times than the phase-appropriate minimum threshold (see Section 8.2). An isolated observation, however compelling, does not constitute a reliable pattern.
+
+- **Rationale**: Single observations may reflect coincidental correlations rather than genuine regularities. Repeated observation across independent instances provides the evidentiary foundation for reliable knowledge.
+- **Diagnostic**: If rejection is due to insufficient evidence, the pattern should be retained as a Category 3 (Pattern Observation) or Category 7 (Self-Generated Pattern) record for continued monitoring.
+
+**Criterion R2: Low Diversity**
+
+The pattern has only been observed in a single context, domain, or problem type. Patterns that lack contextual diversity may be artifacts of specific circumstances rather than generalizable knowledge.
+
+- **Rationale**: A pattern that only manifests in one context may be a context-specific heuristic rather than a transferable skill. Cross-context observation provides evidence of genuine generality.
+- **Diagnostic**: If rejection is due to low diversity, the pattern should be flagged for targeted testing in additional contexts during subsequent Apply phases.
+
+**Criterion R3: No Reasoning Trace**
+
+The pattern lacks a verifiable causal or logical explanation. The agent cannot articulate *why* the pattern holds, only *that* it was observed.
+
+- **Rationale**: Patterns without reasoning traces are correlations without explanatory power. While some valuable knowledge is inherently empirical (e.g., "this configuration works reliably"), most crystallizable knowledge should include at least a plausible mechanism.
+- **Diagnostic**: If rejection is due to missing reasoning trace, the pattern should be flagged for further investigation. The next Study phase should prioritize developing a causal explanation.
+
+**Criterion R4: Pattern Contradicted in Corpus**
+
+There exists disconfirming evidence within the experiential corpus. At least one documented observation contradicts the proposed pattern.
+
+- **Rationale**: A pattern with documented counterexamples requires either refinement (narrowing the applicability conditions to exclude the counterexample) or rejection (if the counterexample undermines the core claim).
+- **Diagnostic**: If rejection is due to contradiction, the pattern may be salvageable through reformulation. Examine the counterexamples to determine whether they represent edge cases (refinement opportunity) or fundamental challenges to the pattern's validity (full rejection).
+
+**Criterion R5: Confidence Score Below Phase-Appropriate Threshold**
+
+The assessed confidence level for the pattern falls below the minimum required for the agent's current developmental phase.
+
+- **Rationale**: Early developmental phases require higher confidence thresholds to prevent premature crystallization from contaminating the skill layer. As the agent matures and the knowledge base stabilizes, progressively lower thresholds become acceptable for incremental refinements.
+- **Diagnostic**: If rejection is due to low confidence, the pattern should be retained for further observation. Subsequent experiential accumulation may provide the additional evidence needed to reach the required confidence level.
+
+### 8.2 Phase-Dependent Thresholds
+
+The five rejection criteria are modulated by phase-dependent thresholds that reflect the developmental state of the agent's knowledge base:
+
+| Phase | Timeframe | Minimum Observations | Minimum Contexts | Approval Requirement | Rationale |
+|-------|-----------|---------------------|-----------------|---------------------|-----------|
+| **Phase 0--1** (Bootstrap) | Weeks 1--3 | 3 | 1 | All crystallization requires explicit operator approval | Highest threshold. The skill layer is being established; quality of initial skills sets the trajectory for all future development. |
+| **Phase 2** (Structured) | Months 1--3 | 5 | 2+ | Agent may propose "skill drafts" for operator confirmation | Medium threshold. The knowledge base has foundational structure; the agent can identify patterns autonomously but still requires operator validation. |
+| **Phase 3+** (Mature) | Month 3+ | 3 | 1 (must include correction or edge case) | Agent may self-crystallize with operator notification | Lower threshold for refinement. The knowledge base is well-established; additions are primarily incremental refinements or edge-case coverage. |
+
+**Phase 0--1 (Bootstrap): Highest Threshold**
+
+During initial development, all crystallization requires explicit operator approval. The minimum evidentiary standard is 3 independent observations. This high threshold ensures that the foundational skills are high-quality, as early skills shape the agent's developmental trajectory and poor initial crystallization is difficult to correct later.
+
+Context diversity is not required at this phase because the agent's operational scope is typically narrow during bootstrap. However, the operator should be encouraged to test candidate skills in at least two scenarios during validation.
+
+**Phase 2 (Structured): Medium Threshold**
+
+As the agent enters structured development, the threshold for observation count increases to 5, reflecting the larger experiential base available. Crucially, these observations must span at least 2 distinct contexts, ensuring genuine generality rather than narrow pattern matching.
+
+The agent is permitted to propose "skill drafts"---preliminary skill documents that have not yet passed all quality gates---for the operator's review. This accelerates the crystallization cycle while maintaining quality control. Skill drafts are stored separately from the active skill layer until validated.
+
+**Phase 3+ (Mature): Lower Threshold for Refinement**
+
+In mature operation, the observation threshold returns to 3, but with a critical additional requirement: at least one observation must be a correction, edge case, or boundary condition. This ensures that mature-phase crystallization genuinely extends knowledge rather than merely confirming existing patterns.
+
+The agent may self-crystallize refined skills with operator notification (rather than explicit approval), as the knowledge base is well-established and the operator trusts the agent's crystallization judgment. However, any crystallization that affects the constitutional layer or creates entirely new skill categories still requires explicit operator approval.
+
+### 8.3 Gate Evaluation Procedure
+
+The gate evaluation procedure is applied at line 8 of the KNOWLEDGE-CRYSTALLIZE algorithm, replacing the simple `Validate(k, E_t)` call with a structured gate check:
+
+```
+Function: GATE-CHECK(k, E_t, phase)
+Input:  Candidate knowledge asset k
+        Full experiential corpus E_t
+        Current developmental phase
+Output: PASS or REJECT with diagnostic
+
+  1: obs_count ← CountObservations(k, E_t)
+  2: ctx_count ← CountContexts(k, E_t)
+  3: has_trace ← HasReasoningTrace(k)
+  4: has_contradiction ← FindContradiction(k, E_t)
+  5: confidence ← AssessConfidence(k, E_t)
+
+  6: // Phase-dependent thresholds
+  7: thresholds ← GetThresholds(phase)
+
+  8: if obs_count < thresholds.min_observations then
+  9:   return REJECT("R1: Insufficient evidence")
+10:  end if
+
+11:  if ctx_count < thresholds.min_contexts then
+12:    return REJECT("R2: Low diversity")
+13:  end if
+
+14:  if NOT has_trace then
+15:    return REJECT("R3: No reasoning trace")
+16:  end if
+
+17:  if has_contradiction then
+18:    return REJECT("R4: Pattern contradicted in corpus")
+19:  end if
+
+20:  if confidence < thresholds.min_confidence then
+21:    return REJECT("R5: Confidence below threshold")
+22:  end if
+
+23:  return PASS
+```
+
+The gate check is applied after structuring and de-contextualization (lines 6--7 of the main algorithm) but before integration into the skill layer (line 12). Patterns that fail the gate check are returned to the experiential layer with diagnostic annotations indicating which criterion failed, enabling targeted remediation in subsequent crystallization cycles.
+
+---
+
+## 9. Anti-Patterns to Avoid
 
 Experience with nurture-first agent development has identified several recurring anti-patterns that degrade the quality of the crystallization process.
 
@@ -439,6 +656,7 @@ Experience with nurture-first agent development has identified several recurring
 ## References
 
 - Collins, A., Brown, J. S., & Newman, S. E. (1989). Cognitive Apprenticeship: Teaching the Craft of Reading, Writing, and Mathematics. In L. B. Resnick (Ed.), *Knowing, Learning, and Instruction: Essays in Honor of Robert Glaser*. Lawrence Erlbaum Associates.
+- Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press.
 - Nonaka, I., & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press.
 - Polanyi, M. (1966). *The Tacit Dimension*. Doubleday.
 - tanaikech. (2026). Recursive Knowledge Crystallization (RKC) Framework. Google Cloud.

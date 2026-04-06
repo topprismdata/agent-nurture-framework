@@ -3,7 +3,7 @@
 > A systematic methodology for developing AI agents from novice to expert through conversational knowledge crystallization.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Framework Version](https://img.shields.io/badge/version-1.0.0-green.svg)]()
+[![Framework Version](https://img.shields.io/badge/version-1.1.0-green.svg)]()
 
 ## Overview
 

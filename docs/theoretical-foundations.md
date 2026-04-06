@@ -4,7 +4,7 @@
 
 Practical frameworks that lack theoretical grounding risk becoming collections of ad hoc techniques whose applicability is uncertain and whose failure modes are unpredictable. Conversely, theoretical constructs that lack operational realization remain academic exercises with limited practical utility. This document establishes the theoretical foundations of the Agent Nurture Framework (ANF), tracing each design decision to established theories of knowledge creation, skill acquisition, cognitive science, and agent architecture. By making these connections explicit, we enable practitioners to reason about when and why the framework applies, predict its behavior in novel contexts, and extend it coherently as underlying technologies evolve.
 
-The theoretical foundations of ANF draw from seven primary sources:
+The theoretical foundations of ANF draw from eight primary sources:
 
 1. Nurture-First Development theory (Zhang, 2026)
 2. The SECI Model of knowledge creation (Nonaka & Takeuchi, 1995)
@@ -12,7 +12,8 @@ The theoretical foundations of ANF draw from seven primary sources:
 4. The Dreyfus skill acquisition model (1986)
 5. Cognitive apprenticeship theory (Collins et al., 1989)
 6. Kolb's experiential learning theory (1984)
-7. Contemporary memory-augmented agent architectures
+7. Situated learning and communities of practice (Lave & Wenger, 1991)
+8. Contemporary memory-augmented agent architectures
 
 We examine each in turn, explicating its contribution to the framework's design.
 
@@ -156,6 +157,68 @@ David Kolb's experiential learning theory describes learning as a four-stage cyc
 
 This mapping reveals that the NFD learning loop is not merely inspired by Kolb's theory but constitutes a concrete operationalization of it within the specific context of AI agent development. The cyclic structure ensures that learning is continuous and self-reinforcing, with each cycle producing deeper and more structured knowledge.
 
+### 4.4 Situated Learning and Communities of Practice (Lave & Wenger, 1991)
+
+Jean Lave and Etienne Wenger's theory of situated learning (1991) introduces a perspective on knowledge acquisition that complements and extends the theories discussed above. Where SECI emphasizes the conversion between tacit and explicit knowledge, and Kolb emphasizes the individual's cognitive processing cycle, situated learning emphasizes the inherently social and contextual nature of learning.
+
+**Legitimate Peripheral Participation**
+
+Lave and Wenger propose that learning is fundamentally a process of participation in a community of practice. Newcomers enter the community at the periphery, engaging in simple, low-risk tasks that are "legitimate"---real and meaningful contributions, not merely exercises---while gradually moving toward full participation in the community's core activities. This trajectory from peripheral to central participation is called **legitimate peripheral participation** (LPP).
+
+The key insight for agent development is that expertise cannot be fully abstracted from the social and material context in which it is practiced. Knowledge is not a commodity that can be transferred wholesale; it is a capability that develops through progressive engagement with real tasks in real contexts.
+
+**Community of Practice**
+
+A community of practice (CoP) is a group of people who share a concern, a set of problems, or a passion about a topic, and who deepen their knowledge and expertise in this area by interacting on an ongoing basis. In the NFD context, the operator and agent together form a community of practice---a community where knowledge is co-constructed in situ through sustained collaborative engagement.
+
+The CoP perspective reveals that the operator-agent relationship is not merely a transfer pipeline (operator has knowledge, agent receives it) but a collaborative knowledge-creation partnership. The agent's role evolves from passive recipient to active participant as it moves from peripheral to core participation.
+
+**Mapping to NFD Phases**
+
+| NFD Phase | CoP Analogy | Participation Level | Knowledge Role |
+|-----------|-------------|-------------------|----------------|
+| Phase 0 (Bootstrap) | Newcomer entry | Peripheral | Agent observes and records; minimal autonomous action |
+| Phase 1 (Initial Nurturing) | Legitimate peripheral tasks | Peripheral to transitional | Agent performs simple tasks under close guidance; begins to absorb community norms |
+| Phase 2 (Structured) | Increasingly central participation | Transitional | Agent takes on more complex tasks; begins contributing patterns and insights |
+| Phase 3+ (Mature) | Core participation | Core | Agent operates as full community member; co-constructs knowledge with operator |
+
+This mapping illuminates the developmental trajectory in a way that complements the Dreyfus model: where Dreyfus describes the cognitive transformation of the individual learner, Lave and Wenger describe the social transformation of the learner's relationship to the community. The agent progresses not only in what it knows but in *how it participates* in the operator-agent community of practice.
+
+**SECI Apprenticeship vs. CoP Co-Discovery**
+
+The situated learning perspective introduces a crucial distinction between two modes of knowledge creation within the NFD framework, each drawing on different aspects of the theoretical foundation:
+
+**Apprenticeship Mode** (grounded primarily in SECI and Cognitive Apprenticeship):
+- The operator possesses established expertise that the agent must acquire.
+- Knowledge flows primarily from operator to agent (Type A knowledge; see [Crystallization Cycle](crystallization-cycle.md), Section 7).
+- The agent's role is to observe, internalize, and faithfully reproduce the operator's expertise.
+- Most appropriate when: the operator has deep, well-established domain expertise and clear mental models of their practice.
+
+**Co-Discovery Mode** (grounded primarily in Communities of Practice theory):
+- Neither party fully possesses the relevant knowledge; both are exploring a domain together.
+- Knowledge is co-emergent (Type C knowledge), arising from the interaction between operator and agent.
+- The agent's role is as an active collaborator, contributing complementary perspectives (e.g., systematic analysis, pattern recognition across large datasets, analogical reasoning from other domains).
+- Most appropriate when: the domain is novel, rapidly evolving, or genuinely exploratory.
+
+**Hybrid Mode** (combining both perspectives):
+- The operator possesses adjacent expertise that is relevant but not directly applicable to the current domain.
+- Knowledge flows are bidirectional: the operator provides domain intuition and strategic judgment (Type A), while the agent contributes systematic analysis and cross-domain transfer (Type B), producing co-emergent insights (Type C).
+- Most appropriate when: the operator has expertise in a related domain and the agent brings complementary analytical capabilities.
+
+The interaction mode shapes the Five-Stage Learning Loop in specific ways:
+
+| Learning Loop Stage | Apprenticeship Mode | Co-Discovery Mode | Hybrid Mode |
+|-------------------|--------------------|--------------------|-------------|
+| **Study** | Agent learns from operator's instruction and demonstration | Both parties research and share findings collaboratively | Operator provides domain context; agent contributes systematic literature review |
+| **Verify** | Agent validates understanding against operator's expectations | Both parties design experiments to test shared hypotheses | Operator evaluates strategic soundness; agent verifies technical correctness |
+| **Apply** | Agent deploys learned knowledge in real tasks | Both parties collaborate on novel problem-solving | Operator guides strategy; agent executes with analytical rigor |
+| **Extract** | Agent crystallizes operator-originated patterns | Agent and operator jointly identify co-emergent insights | Agent extracts patterns from both operator-originated and agent-originated observations |
+| **Plan** | Agent identifies gaps in its understanding of operator's expertise | Both parties identify frontier areas for joint exploration | Operator identifies strategic gaps; agent identifies tactical knowledge gaps |
+
+The choice of interaction mode should be made deliberately at the outset of the nurturing relationship and revisited as the agent matures. Many effective operator-agent partnerships transition from apprenticeship mode (Phase 0--1) through hybrid mode (Phase 2) toward co-discovery mode (Phase 3+), mirroring the LPP trajectory from peripheral to core participation.
+
+For the formal definition of interaction modes and their operational implications, see [Framework](framework.md), Section 2.4.
+
 ---
 
 ## 5. Memory-Augmented Agent Architectures
@@ -246,6 +309,7 @@ Modular Intelligence's principles impose concrete design constraints on the ANF 
 - Collins, A., Brown, J. S., & Newman, S. E. (1989). Cognitive Apprenticeship: Teaching the Craft of Reading, Writing, and Mathematics. In L. B. Resnick (Ed.), *Knowing, Learning, and Instruction: Essays in Honor of Robert Glaser*. Lawrence Erlbaum Associates.
 - Dreyfus, H. L., & Dreyfus, S. E. (1986). *Mind over Machine: The Power of Human Intuition and Expertise in the Era of the Computer*. Free Press.
 - Kolb, D. A. (1984). *Experiential Learning: Experience as the Source of Learning and Development*. Prentice-Hall.
+- Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press.
 - Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., ... & Kiela, D. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. *Advances in Neural Information Processing Systems, 33*, 9459--9474.
 - Nonaka, I., & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press.
 - Packer, C., Fang, V., Chaffin, B., Foerster, K., & Gonzalez, J. E. (2023). MemGPT: Towards LLMs as Operating Systems. *arXiv preprint arXiv:2310.08560*.

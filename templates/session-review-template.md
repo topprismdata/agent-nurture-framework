@@ -69,6 +69,41 @@ Evaluate each potential skill candidate against the four quality criteria.
 - **Specificity:** Does this have clear trigger conditions? (High = specific error/symptom, Low = vague/general)
 - **Priority:** How important is it to crystallize this? (5 = critical, 1 = nice to have)
 
+### Self-Generated Insights
+
+Record any patterns, heuristics, or discoveries that the agent identified through its own reasoning processes (independent of explicit operator instruction). These correspond to Type B (agent-originated) knowledge in the Bidirectional Knowledge Flow model (see [Crystallization Cycle](../docs/crystallization-cycle.md), Section 7).
+
+1. **Insight:** [What pattern or principle did the agent discover?]
+   **Discovery method:** Trial-and-error / Cross-domain transfer / Meta-cognitive reflection
+   **Supporting evidence:** [What observations led to this insight?]
+   **Novelty assessment:** New to operator / Already known to operator
+
+2. **Insight:** [What pattern or principle did the agent discover?]
+   **Discovery method:** Trial-and-error / Cross-domain transfer / Meta-cognitive reflection
+   **Supporting evidence:** [What observations led to this insight?]
+   **Novelty assessment:** New to operator / Already known to operator
+
+3. **Insight:** [What pattern or principle did the agent discover?]
+   **Discovery method:** Trial-and-error / Cross-domain transfer / Meta-cognitive reflection
+   **Supporting evidence:** [What observations led to this insight?]
+   **Novelty assessment:** New to operator / Already known to operator
+
+### Knowledge Origin and Evidence Tracking
+
+For each skill candidate and self-generated insight, record the knowledge origin type and the number of supporting observations. These fields are required for the Crystallization Gates evaluation (see [Crystallization Cycle](../docs/crystallization-cycle.md), Section 8).
+
+| # | Candidate / Insight | Knowledge Origin | Evidence Count | Contexts Observed | Reasoning Trace Available? |
+|---|-------------------|------------------|----------------|-------------------|---------------------------|
+| 1 | [name] | Operator-originated (A) / Agent-originated (B) / Co-emergent (C) | [N observations] | [N distinct contexts] | Yes / No |
+| 2 | [name] | Operator-originated (A) / Agent-originated (B) / Co-emergent (C) | [N observations] | [N distinct contexts] | Yes / No |
+| 3 | [name] | Operator-originated (A) / Agent-originated (B) / Co-emergent (C) | [N observations] | [N distinct contexts] | Yes / No |
+
+**Field Definitions:**
+- **Knowledge Origin:** How did this knowledge originate? (A = operator provided it, B = agent discovered it, C = it emerged from collaboration)
+- **Evidence Count:** How many independent observations support this candidate? Used to evaluate Crystallization Gate R1 (Insufficient Evidence).
+- **Contexts Observed:** In how many distinct contexts has this pattern been seen? Used to evaluate Crystallization Gate R2 (Low Diversity).
+- **Reasoning Trace Available:** Is there a documented causal explanation for why this pattern holds? Used to evaluate Crystallization Gate R3 (No Reasoning Trace).
+
 ---
 
 ## Extracted Skills

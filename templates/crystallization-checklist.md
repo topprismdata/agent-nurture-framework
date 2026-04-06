@@ -49,6 +49,56 @@ These steps ensure each candidate pattern meets the quality bar for crystallizat
 
 ---
 
+## Crystallization Gate Check
+
+These steps enforce the quantitative quality gates defined in [Crystallization Cycle](../docs/crystallization-cycle.md), Section 8. Each validated pattern must pass all five gates before proceeding to structuring.
+
+### Gate R1: Evidence Count Check
+
+- [ ] Each pattern has been observed the minimum number of times for the current phase:
+  - Phase 0--1 (Bootstrap): Minimum **3** independent observations
+  - Phase 2 (Structured): Minimum **5** independent observations
+  - Phase 3+ (Mature): Minimum **3** observations (must include at least 1 correction or edge case)
+- [ ] Observation counts are documented and verifiable in the experiential corpus
+
+### Gate R2: Diversity Check
+
+- [ ] Each pattern has been observed in at least the minimum number of distinct contexts:
+  - Phase 0--1 (Bootstrap): Minimum **1** context (encourage testing in 2+)
+  - Phase 2 (Structured): Minimum **2** distinct contexts
+  - Phase 3+ (Mature): Minimum **1** context with correction or edge case
+- [ ] Context diversity is documented (list the distinct contexts for each pattern)
+
+### Gate R3: Reasoning Trace Check
+
+- [ ] Each pattern has a documented causal or logical explanation (why it works, not just that it was observed)
+- [ ] The reasoning trace is included in the candidate knowledge asset
+
+### Gate R4: Corpus Contradiction Check
+
+- [ ] The full experiential corpus has been searched for disconfirming evidence
+- [ ] No unexplained contradictions found (if contradictions exist, document how they are addressed or why the pattern is still valid within its stated scope)
+
+### Gate R5: Phase-Appropriate Confidence Check
+
+- [ ] Each pattern's confidence score meets the minimum for the current developmental phase:
+  - Phase 0--1 (Bootstrap): All crystallization requires explicit operator approval
+  - Phase 2 (Structured): Agent may propose "skill drafts" for operator confirmation
+  - Phase 3+ (Mature): Agent may self-crystallize refinements with operator notification (new skill categories still require explicit approval)
+- [ ] Knowledge origin type is identified for each pattern (A: operator-originated, B: agent-originated, C: co-emergent) and appropriate validation flow is followed
+
+### Gate Summary
+
+| Pattern | R1: Evidence | R2: Diversity | R3: Reasoning | R4: No Contradiction | R5: Confidence | Overall |
+|---------|-------------|---------------|---------------|---------------------|----------------|---------|
+| [name] | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail |
+| [name] | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail |
+| [name] | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail |
+
+Patterns that fail any gate are returned to the experiential layer with diagnostic annotations and revisited in the next crystallization cycle.
+
+---
+
 ## Structuring
 
 These steps convert validated patterns into well-structured skill files.
