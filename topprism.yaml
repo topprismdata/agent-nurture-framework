@@ -1,16 +1,21 @@
 topprism:
-  purpose: native_ai
+  purpose: native-ai
   capability: agent_capability_evolution
-  platform_layer: organizational_intelligence
+  platform_layer: organizational-intelligence
   maturity: framework
   evidence:
-    type: longitudinal_internal_evidence
-    scope: "Documented ML case study (14x capability speedup observation) + framework artifacts (templates, scripts, capability matrix, audit utilities)"
+    type: internal-evaluation
+    source: topprism-internal-eval
+    scope: >-
+      Documented ML case study (14x capability speedup observation)
+      plus framework artifacts (templates, scripts, capability matrix,
+      audit utilities).
+    status: longitudinal-internal
   related:
-    - cultivating_ml_agent
-    - skill_tester
-    - notebook_knowledge_distillation
-    - three_layer_wisdom_extraction
+    - cultivating-ml-agent
+    - skill-tester
+    - notebook-knowledge-distillation
+    - three-layer-wisdom-extraction
 
 business_question:
   en: >-
@@ -24,13 +29,13 @@ business_question:
     重新开始？
 
 platform:
-  system: native_ai
-  layer: organizational_intelligence
-  solution: agent_nurture_framework
+  system: native-ai
+  layer: organizational-intelligence
+  solution: agent-nurture-framework
 
 website:
-  product_path: /native-ai/agent-nurture-framework
-  evidence_path: /evidence/agent-nurture-framework
+  status: planned
+  path: /native-ai/agent-nurture-framework
 
 repository:
   owner: topprismdata
