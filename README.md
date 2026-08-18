@@ -364,7 +364,7 @@ These are core research and engineering questions for Native AI.
 
 ------------------------------------------------------------------------
 
-## Recommended evidence discipline
+## Evidence discipline
 
 Every future capability claim should specify:
 
