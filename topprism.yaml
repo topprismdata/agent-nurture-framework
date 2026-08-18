@@ -1,0 +1,37 @@
+topprism:
+  purpose: native_ai
+  capability: agent_capability_evolution
+  platform_layer: organizational_intelligence
+  maturity: framework
+  evidence:
+    type: longitudinal_internal_evidence
+    scope: "Documented ML case study (14x capability speedup observation) + framework artifacts (templates, scripts, capability matrix, audit utilities)"
+  related:
+    - cultivating_ml_agent
+    - skill_tester
+    - notebook_knowledge_distillation
+    - three_layer_wisdom_extraction
+
+business_question:
+  en: >-
+    How should an AI agent's accumulated work be turned into reusable,
+    compounding organizational capability, so that the next project
+    starts from a higher baseline instead of restarting from a static
+    prompt?
+  zh: >-
+    如何把 AI Agent 累积的工作转化为可复用、能复利的组织级能力，使得
+    下一个项目从一个更高的能力基线开始，而不是每次都从静态 prompt
+    重新开始？
+
+platform:
+  system: native_ai
+  layer: organizational_intelligence
+  solution: agent_nurture_framework
+
+website:
+  product_path: /native-ai/agent-nurture-framework
+  evidence_path: /evidence/agent-nurture-framework
+
+repository:
+  owner: topprismdata
+  public: true

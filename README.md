@@ -1,205 +1,410 @@
 # Agent Nurture Framework
 
-> A systematic methodology for developing AI agents from novice to expert through conversational knowledge crystallization.
+**A general methodology for turning repeated AI-agent work into
+reusable, compounding organizational capability.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Framework Version](https://img.shields.io/badge/version-1.1.0-green.svg)]()
+`NATIVE AI` · `FRAMEWORK` · `LONGITUDINAL INTERNAL EVIDENCE` · `MIT`
 
-## Overview
+> **Core question:** How can an agent become better across projects
+> instead of restarting from the same static prompt every time?
 
-The Agent Nurture Framework provides a principled approach to growing AI agent capabilities over time. Rather than pre-building agents with static prompts or code pipelines, this framework treats agent development as a **continuous, conversational process** where knowledge is accumulated through daily use and periodically crystallized into structured, reusable assets.
+Part of **TopPrism Native AI**.
 
-Based on [Nurture-First Development (NFD)](https://arxiv.org/abs/2603.10808) theory and validated through months of real-world experimentation (including a demonstrated **14x capability speedup** across projects), this framework provides:
+------------------------------------------------------------------------
 
-- **Three-Layer Knowledge Architecture** organizing agent knowledge by volatility and personalization
-- **Knowledge Crystallization Cycle** transforming fragmented experience into structured expertise
-- **Complete Toolchain** including templates, automation scripts, and example skills
-- **Rigorous Theoretical Foundation** grounded in SECI, Dreyfus, and Kolb learning theories
+## Why this exists
 
-## Architecture
+Most agent systems focus on what an agent can do **today**:
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  L1: Constitutional Layer (Stable)                       │
-│  Identity · Principles · Core Knowledge                  │
-│  Loaded every session · Updated monthly                  │
-├─────────────────────────────────────────────────────────┤
-│  L2: Skill Layer (Evolving)                              │
-│  Domain Skills · Workflows · Playbooks                    │
-│  Loaded on demand · Updated per project                  │
-├─────────────────────────────────────────────────────────┤
-│  L3: Experiential Layer (Dynamic)                        │
-│  Session Logs · Debug Traces · Observations               │
-│  Semantic search · Crystallized into L1/L2               │
-└─────────────────────────────────────────────────────────┘
-         ↑ Crystallization ↑          ↓ Grounding ↓
+``` text
+Model + Prompt + Tools → Task
 ```
 
-## Quick Start
+The Agent Nurture Framework focuses on a different problem:
 
-### 1. Set up your workspace
+> **What should happen after the task is finished so that the next
+> project starts from a higher capability baseline?**
 
-The `templates/bootstrap-config/` directory contains reference documents describing the recommended workspace structure and configuration patterns. It is not a ready-to-use scaffold -- instead, review [workspace-structure.md](templates/bootstrap-config/workspace-structure.md) to understand the directory layout, then create your own workspace following the described structure.
+The framework treats agent development as a longitudinal learning
+process:
 
-```bash
-# Review the workspace structure reference
-cat templates/bootstrap-config/workspace-structure.md
-
-# Create your workspace following the reference structure
-mkdir -p my-agent && cd my-agent
+``` text
+Project
+   ↓
+Experience
+   ↓
+Validated lesson
+   ↓
+Knowledge crystallization
+   ↓
+Reusable skill / principle
+   ↓
+Better agent
+   ↓
+Next project
 ```
 
-### 2. Define your agent's identity
+This is the general methodology behind TopPrism's project-evolving
+agents.
 
-Edit `soul.md` to define your agent's role, principles, and boundaries.
+------------------------------------------------------------------------
 
-### 3. Start nurturing
+## Relationship to Cultivating ML Agent
 
-Begin interacting with your agent. After each significant session, use the session review template to identify extractable knowledge.
+This distinction should be explicit.
 
-### 4. Crystallize regularly
-
-Use the provided scripts to assess skill quality, detect consolidation opportunities, and schedule crystallization sessions.
-
-```bash
-# Audit your skill library
-python scripts/skill_audit.py --dir ./skills
-
-# Check for overlapping skills
-python scripts/skill_consolidation_checker.py --dir ./skills
-
-# Assess agent capabilities
-python scripts/capability_assessment.py --template templates/capability-matrix-template.md
-
-# Check crystallization schedule
-python scripts/crystallization_scheduler.py --dir ./skills
+``` text
+Agent Nurture Framework
+        ↓
+general methodology
+        ↓
+knowledge layers
+crystallization
+learning loop
+evaluation principles
+        ↓
+Cultivating ML Agent
+        ↓
+ML-domain implementation
+        ↓
+real ML projects
+experiments
+failures
+skills
+automatic reuse
 ```
 
-## Core Concepts
+**Agent Nurture Framework** asks how an agent should learn across work.
 
-### The Five-Stage Learning Loop
+**Cultivating ML Agent** is a concrete longitudinal implementation in
+machine learning.
 
+------------------------------------------------------------------------
+
+## The core mechanism
+
+### 1. Work creates experience
+
+Real projects produce:
+
+-   decisions;
+-   successful patterns;
+-   failed approaches;
+-   debugging traces;
+-   domain-specific heuristics;
+-   unresolved knowledge gaps.
+
+### 2. Experience is not automatically knowledge
+
+Raw logs are noisy and highly contextual.
+
+The framework therefore separates:
+
+``` text
+L3 — Experiential
+session traces · observations · failures
+
+          ↓ crystallize
+
+L2 — Skill
+workflows · playbooks · domain methods
+
+          ↓ consolidate
+
+L1 — Constitutional
+identity · principles · stable knowledge
 ```
+
+### 3. Knowledge must return to work
+
+Crystallized knowledge only matters if it improves later tasks.
+
+The framework therefore uses a recurring learning loop:
+
+``` text
 Study → Verify → Apply → Extract → Plan
   ↑                                 |
   └─────────────────────────────────┘
 ```
 
-Each stage builds on the previous one, creating a continuous cycle of knowledge acquisition and refinement:
+------------------------------------------------------------------------
 
-| Stage | Description | Output |
-|-------|-------------|--------|
-| **Study** | Immerse the agent in domain knowledge through conversation | Raw experiential data (L3) |
-| **Verify** | Test understanding through structured validation | Verified knowledge fragments |
-| **Apply** | Use knowledge in real tasks to build practical competence | Task outcomes and edge cases |
-| **Extract** | Identify reusable patterns from successful applications | Candidate skill material |
-| **Plan** | Determine next learning priorities and knowledge gaps | Learning roadmap updates |
+## Three-layer knowledge architecture
 
-### Knowledge Crystallization Cycle
+  -----------------------------------------------------------------------
+  Layer             Role              Volatility        Typical content
+  ----------------- ----------------- ----------------- -----------------
+  L1 Constitutional stable identity   low               role, boundaries,
+                    and principles                      core principles
 
+  L2 Skill          reusable domain   medium            workflows,
+                    capability                          playbooks,
+                                                        troubleshooting
+
+  L3 Experiential   raw project       high              logs, failures,
+                    experience                          observations
+  -----------------------------------------------------------------------
+
+Knowledge moves upward through crystallization and downward through
+grounding.
+
+The point is not to store everything forever. It is to move the **right
+abstraction** into the right layer.
+
+------------------------------------------------------------------------
+
+## Knowledge crystallization
+
+``` text
+Conversation / Project
+        ↓
+Experiential accumulation
+        ↓
+Review & validation
+        ↓
+Pattern extraction
+        ↓
+Skill candidate
+        ↓
+Evaluation / consolidation
+        ↓
+Reusable organizational capability
 ```
-Conversational Immersion → Experiential Accumulation → Deliberate Crystallization → Grounded Application
-              ↑                                                                                |
-              └────────────────────────────────────────────────────────────────────────────────┘
+
+A useful skill should be:
+
+-   reusable beyond one session;
+-   grounded in observed evidence;
+-   specific enough to trigger correctly;
+-   abstract enough to transfer;
+-   revisable when later evidence contradicts it.
+
+------------------------------------------------------------------------
+
+## Evidence
+
+The framework repository references a longitudinal ML case study in
+which knowledge crystallization was associated with an observed **14×
+capability-speedup measure** across the documented project sequence.
+
+That number must be presented carefully:
+
+> **14× is an observed result in the referenced ML longitudinal case
+> study, not a universal claim that the framework makes every agent 14×
+> better.**
+
+The stronger evidence is longitudinal:
+
+-   knowledge was extracted from real project work;
+-   reusable skills accumulated over time;
+-   later projects could activate prior knowledge;
+-   the framework produced concrete artifacts, templates, audits, and
+    capability assessments rather than only a conceptual model.
+
+See the repository's ML case study for the exact methodology and metric
+definition.
+
+------------------------------------------------------------------------
+
+## What this framework is --- and is not
+
+### Use it when
+
+-   expertise is partly tacit;
+-   projects repeat with variation;
+-   failures contain reusable lessons;
+-   knowledge evolves over time;
+-   agents are used repeatedly by a person or organization;
+-   the cost of restarting from zero is meaningful.
+
+### Do not use it when
+
+-   the task is fully deterministic and should simply be code;
+-   knowledge is static and already well specified;
+-   there is no repeated-use learning loop;
+-   storing experience creates more risk than value;
+-   success cannot be evaluated at all.
+
+------------------------------------------------------------------------
+
+## Why this is Native AI infrastructure
+
+``` text
+Employee / Team
+      ↓
+Persistent Agent
+      ↓
+Projects
+      ↓
+Experience
+      ↓
+Knowledge Crystallization
+      ↓
+Skills
+      ↓
+Evaluation
+      ↓
+Higher organizational capability
 ```
 
-The cycle transforms tacit, session-specific knowledge into explicit, reusable assets:
+This is not a customer-facing Decision Engine. It is infrastructure for
+making an AI-enabled organization compound what it learns.
 
-1. **Conversational Immersion**: Engage deeply with domain problems through natural dialogue
-2. **Experiential Accumulation**: Build a rich corpus of interactions, solutions, and observations
-3. **Deliberate Crystallization**: Periodically review accumulated experience and distill structured skills
-4. **Grounded Application**: Test crystallized knowledge in new scenarios and refine based on feedback
+------------------------------------------------------------------------
 
-### Three-Layer Knowledge Architecture
+## Framework components
 
-| Layer | Volatility | Content | Update Frequency |
-|-------|-----------|---------|-----------------|
-| **L1: Constitutional** | Low | Agent identity, core principles, domain fundamentals | Monthly |
-| **L2: Skill** | Medium | Domain skills, workflows, playbooks, troubleshooting guides | Per project |
-| **L3: Experiential** | High | Session logs, debug traces, ad-hoc observations | Per session |
+  Component                   Purpose
+  --------------------------- ------------------------------------------
+  Knowledge architecture      decide where knowledge belongs
+  Five-stage learning loop    structure continuous learning
+  Crystallization cycle       convert experience into reusable assets
+  Skill audit                 inspect quality and fragmentation
+  Consolidation checker       identify overlap and merge opportunities
+  Capability assessment       track agent growth
+  Crystallization scheduler   decide when review is needed
+  Templates                   standardize operational use
 
-Knowledge flows upward through crystallization (L3 to L2 to L1) and downward through grounding (L1 shapes L2 shapes L3 interpretation).
+------------------------------------------------------------------------
 
-### Applicability
+## Quick start
 
-This framework is most effective when:
+The framework is intentionally methodology-first rather than a
+one-command agent scaffold.
 
-- Domain expertise is substantially tacit (can't be fully documented upfront)
-- Expertise is highly personal (different practitioners have different approaches)
-- Expertise evolves continuously (static encodings become stale)
-- Interaction is conversational (natural knowledge transfer during use)
-- Pattern recognition from experience is valuable
+1.  review the workspace structure reference;
+2.  define the agent's role, principles, and boundaries;
+3.  use the agent on real work;
+4.  capture significant experience;
+5.  review and crystallize reusable knowledge;
+6.  evaluate and consolidate skills;
+7.  measure whether later tasks improve.
 
-This framework is **not** ideal when:
+Example utilities:
 
-- Domain knowledge is fully formalizable (use code-first instead)
-- Expertise is static and unchanging (use prompt-first instead)
-- Tasks are repetitive with no learning component
+``` bash
+python scripts/skill_audit.py --dir ./skills
+python scripts/skill_consolidation_checker.py --dir ./skills
+python scripts/capability_assessment.py \
+  --template templates/capability-matrix-template.md
+python scripts/crystallization_scheduler.py --dir ./skills
+```
 
-## Documentation
+------------------------------------------------------------------------
 
-| Document | Description |
-|----------|-------------|
-| [Framework Core](docs/framework.md) | Formal definitions, five-stage loop, operational framework |
-| [Theoretical Foundations](docs/theoretical-foundations.md) | NFD, SECI, Dreyfus, Kolb, Cognitive Apprenticeship |
-| [Knowledge Architecture](docs/knowledge-architecture.md) | Three-layer architecture with cross-layer flows |
-| [Crystallization Cycle](docs/crystallization-cycle.md) | KCC phases, formal model, algorithm, triggers |
-| [Fragmentation Management](docs/fragmentation-management.md) | Skill consolidation strategies |
-| [Progress Measurement](docs/progress-measurement.md) | Capability matrix and growth metrics |
-| [ML Case Study](docs/case-study-ml.md) | 14x speedup through knowledge crystallization |
+## Related TopPrism projects
 
-## Templates & Examples
+### Cultivating ML Agent
 
-| Resource | Description |
-|----------|-------------|
-| [Skill Template](templates/skill-template.md) | Standard structure for new skills |
-| [Capability Matrix](templates/capability-matrix-template.md) | Agent capability assessment |
-| [Crystallization Checklist](templates/crystallization-checklist.md) | Step-by-step crystallization guide |
-| [Consolidation Audit](templates/consolidation-audit-template.md) | Skill merge/review template |
-| [Session Review](templates/session-review-template.md) | End-of-session knowledge extraction |
-| [Bootstrap Config](templates/bootstrap-config/) | Starter workspace configuration |
-| [Example Skills](examples/skills/) | L1/L2/L3 skill examples |
+Concrete ML-domain implementation of the nurture-first idea.
 
-## Comparison with Alternatives
+### Skill Tester
 
-| Dimension | Code-First | Prompt-First | Nurture-First (This Framework) |
-|-----------|-----------|-------------|-------------------------------|
-| Developer | Software Engineer | Prompt Engineer | Domain Practitioner |
-| Knowledge encoding | Deterministic pipelines | Static system prompts | Living knowledge base |
-| Adaptation | Engineering cycles | Prompt optimization | Continuous through use |
-| Scalability ceiling | Engineering capacity | Context window | Memory search quality |
-| Tacit knowledge capture | Limited | Limited | Strong (conversational) |
-| Personalization | Low | Medium | High |
-| Maintenance cost | High (code updates) | Medium (prompt tuning) | Low (natural evolution) |
+Quality and trigger-evaluation gate for reusable agent skills.
 
-## Automation Scripts
+### Notebook Knowledge Distillation
 
-| Script | Description |
-|--------|-------------|
-| [skill_audit.py](scripts/skill_audit.py) | Quality assessment and statistics for your skill library |
-| [skill_consolidation_checker.py](scripts/skill_consolidation_checker.py) | Detect merge opportunities and skill overlap |
-| [capability_assessment.py](scripts/capability_assessment.py) | Interactive capability matrix scoring |
-| [crystallization_scheduler.py](scripts/crystallization_scheduler.py) | Monitor staleness and schedule crystallization |
+A source-to-skill path for converting external knowledge into candidate
+organizational capability.
 
-## Contributing
+### Three-Layer Wisdom Extraction
 
-Contributions welcome! This framework is designed to be domain-agnostic. If you've applied it in areas beyond ML (e.g., legal analysis, medical diagnosis, creative writing), we'd love to hear about your experience.
+Experiments with lifting project events into domain knowledge and
+transferable principles.
 
-Please feel free to:
+Together they form a broader Native AI loop:
 
-1. Open an issue to discuss proposed changes
-2. Submit pull requests with new templates, scripts, or documentation
-3. Share case studies from your domain
-4. Suggest improvements to the theoretical framework
+``` text
+External knowledge + Project experience
+                 ↓
+             Distillation
+                 ↓
+           Skill candidates
+                 ↓
+              Testing
+                 ↓
+        Organizational library
+                 ↓
+             Agent reuse
+                 ↓
+            New experience
+```
 
-## References
+------------------------------------------------------------------------
 
-See [references/bibliography.md](references/bibliography.md) for the complete list of cited works.
+## Theoretical grounding
 
-## Acknowledgments
+The framework draws on Nurture-First Development and connects the
+operational model to learning / knowledge-management traditions such as
+SECI, Dreyfus, Kolb, and cognitive apprenticeship.
 
-This framework builds on foundational work in knowledge management, skill acquisition theory, and agent architectures. See [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) for a full list of contributions.
+The README should summarize these foundations; detailed theory belongs
+in `docs/theoretical-foundations.md`.
+
+The value of the repository should be judged primarily by:
+
+> **whether the mechanism creates reusable capability that improves
+> later work**, not by the number of theories cited.
+
+------------------------------------------------------------------------
+
+## Boundaries & open questions
+
+Important open questions include:
+
+1.  how to measure causal improvement from crystallized knowledge;
+2.  when accumulated skills become stale;
+3.  how to prevent incorrect lessons from propagating;
+4.  how to evaluate trigger precision and skill selection;
+5.  how to handle conflicting experience;
+6.  how to govern privacy and sensitive project memory;
+7.  how much of organizational learning should remain human-reviewed.
+
+These are core research and engineering questions for Native AI.
+
+------------------------------------------------------------------------
+
+## Recommended evidence discipline
+
+Every future capability claim should specify:
+
+``` text
+Observed where?
+Measured how?
+Compared with what?
+Over what period?
+Does it generalize?
+```
+
+Avoid generic statements such as "14× faster" without immediately
+linking the exact case, denominator, and metric.
+
+------------------------------------------------------------------------
+
+## TopPrism metadata
+
+``` yaml
+topprism:
+  purpose: native-ai
+  capability: agent-capability-evolution
+  platform_layer: organizational-intelligence
+  maturity: framework
+  evidence:
+    type: longitudinal-internal-evidence
+    scope: "documented ML case study and framework artifacts"
+  related:
+    - cultivating-ml-agent
+    - skill-tester
+    - notebook-knowledge-distillation
+    - three-layer-wisdom-extraction
+```
 
 ## License
 
-[MIT License](LICENSE)
+MIT.
+
+## Contributing
+
+Contributions are especially useful around evaluation, stale-knowledge
+detection, skill consolidation, governance, longitudinal measurement,
+and cross-domain case studies.
