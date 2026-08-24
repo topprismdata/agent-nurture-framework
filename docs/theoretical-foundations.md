@@ -1,3 +1,16 @@
+---
+status: reference-only (Week 3 note, 2026-08-22)
+---
+
+> **READER ADVISORY — this document is background reference, not design
+> authority.** Per the Project Direction Charter and ADR-001, ANF's normative
+> architecture is defined by `00_PROJECT_DIRECTION_CHARTER.md`,
+> `knowledge-architecture.md` (two-plane model), and
+> `crystallization-cycle.md` (risk-aware gates). Where the theory below
+> conflicts with those documents (e.g., three-layer L1/L2/L3 framing,
+> time-based maturity, tacit-knowledge "capture" phrasing), **the charter and
+> ADR govern**. Retained here because it situates ANF's intellectual lineage.
+
 # Theoretical Foundations of the Agent Nurture Framework
 
 ## 1. Introduction

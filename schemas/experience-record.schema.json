@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://topprism.dev/schemas/anf/experience-record.schema.json",
+  "title": "ANF ExperienceRecord",
+  "description": "One observable unit of work: decision, action, outcome. No model-internal reasoning is captured. See docs/knowledge-architecture.md §5.",
+  "type": "object",
+  "required": [
+    "record_id",
+    "task",
+    "decision",
+    "decision_summary",
+    "action",
+    "outcome",
+    "classification",
+    "trust_level",
+    "timestamp"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^exp-[A-Za-z0-9._-]+$"
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "decision_summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "Human-readable rationale summary; replaces reasoning_trace."
+    },
+    "alternatives_considered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action": {
+      "type": "string"
+    },
+    "execution_trace_refs": {
+      "type": "array",
+      "description": "Pointers to logs/tool-call records; references only, not full dumps.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "enum": [
+            "success",
+            "failure",
+            "partial"
+          ]
+        },
+        "metric_name": {
+          "type": "string"
+        },
+        "metric_value": {},
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "correction": {
+      "type": "string",
+      "description": "Operator correction applied after the fact, if any."
+    },
+    "related_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "trust_level": {
+      "enum": [
+        "untrusted_external",
+        "human_observation",
+        "agent_inference",
+        "verified_execution"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "x-anf-schema-version": "0.1.0"
+}

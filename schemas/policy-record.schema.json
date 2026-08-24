@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://topprism.dev/schemas/anf/policy-record.schema.json",
+  "title": "ANF PolicyRecord",
+  "description": "Authority-plane artifact (A0–A3). Authored by humans under governance processes; never produced by capability promotion. See knowledge-architecture.md §3 and ADR-001 Promotion Matrix.",
+  "type": "object",
+  "x-anf-schema-version": "0.1.0",
+  "required": ["policy_id", "authority_level", "statement", "scope", "classification", "owner", "version", "effective_from"],
+  "additionalProperties": true,
+  "properties": {
+    "policy_id": {"type": "string", "pattern": "^pol-[A-Za-z0-9._-]+$"},
+    "authority_level": {"enum": ["A0", "A1", "A2", "A3"]},
+    "statement": {"type": "string", "minLength": 1},
+    "scope": {"enum": ["personal", "project", "team", "organization", "external"]},
+    "classification": {"enum": ["public", "internal", "confidential", "restricted"]},
+    "owner": {"type": "string", "minLength": 1},
+    "approvers": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "description": "Human approvers. A1/A2 require named approvers per governance process."
+    },
+    "audit_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Independent audit records. Required for any policy whose origin traces to a capability proposal (K→A path), which otherwise defaults to prohibited."
+    },
+    "version": {"type": "string", "minLength": 1},
+    "supersedes": {"type": ["string", "null"]},
+    "effective_from": {"type": "string", "format": "date"},
+    "review_due": {"type": ["string", "null"], "format": "date"},
+    "guidance_refs": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^cap-[A-Za-z0-9._-]+$"},
+      "description": "Capabilities that implement guidance derived FROM this policy. This is the ONLY permitted link between planes, direction: Policy → implementation guidance. There is deliberately NO field representing capability→policy promotion; adding one violates ADR-001."
+    }
+  }
+}

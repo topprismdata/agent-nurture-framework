@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://topprism.dev/schemas/anf/capability-record.schema.json",
+  "title": "ANF CapabilityRecord (topprism metadata block)",
+  "description": "Organizational metadata for a capability. In a SKILL.md this object nests under metadata.topprism; physical format defers to the Agent Skills specification. Jointly owned with cultivating-ml-agent — see schemas/README.md.",
+  "type": "object",
+  "x-anf-schema-version": "0.1.0",
+  "required": ["capability_id", "lifecycle_status", "risk_level", "scope", "provenance_chain_id"],
+  "additionalProperties": true,
+  "properties": {
+    "capability_id": {"type": "string", "pattern": "^cap-[A-Za-z0-9._-]+$"},
+    "lifecycle_status": {
+      "enum": ["draft", "active", "refining", "stable", "disputed", "deprecated"]
+    },
+    "risk_level": {"enum": ["low", "medium", "high"]},
+    "scope": {"enum": ["personal", "project", "team", "organization"]},
+    "evidence_ids": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^ev-[A-Za-z0-9._-]+$"}
+    },
+    "provenance_chain_id": {"type": "string", "pattern": "^prov-[A-Za-z0-9._-]+$"},
+
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Evidence-based freshness. mtime is never used. See schemas/README.md.",
+      "properties": {
+        "last_used": {"type": ["string", "null"], "format": "date-time"},
+        "last_verified": {"type": ["string", "null"], "format": "date-time"},
+        "last_contradicted": {"type": ["string", "null"], "format": "date-time"},
+        "last_verified_evidence_id": {"type": ["string", "null"]},
+        "source_version": {"type": ["string", "null"], "description": "Version of the volatile source the capability was verified against."},
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "version_at_verification"],
+            "properties": {
+              "name": {"type": "string"},
+              "version_at_verification": {"type": "string"},
+              "current_version": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    },
+
+    "authority_constraints": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^pol-[A-Za-z0-9._-]+$"},
+      "description": "Policies that constrain when/how this capability may run (grounding, A→K influence). Not promotion."
+    }
+  }
+}

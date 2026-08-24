@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://topprism.dev/schemas/anf/evidence-envelope.schema.json",
+  "title": "ANF EvidenceRecord (Evidence Envelope)",
+  "description": "Minimal evidence contract. ANF does not know how skill-tester tests or how cultivating runs TransferBench; it only defines what must be handed over. See ADR-001 § Evidence envelope.",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "capability_id",
+    "skill_id",
+    "evidence_type",
+    "source_system",
+    "measurement_protocol",
+    "protocol_version",
+    "metric_name",
+    "metric_value",
+    "metric_version",
+    "executor",
+    "provenance_chain_id",
+    "timestamp"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^ev-[A-Za-z0-9._-]+$"
+    },
+    "capability_id": {
+      "type": "string",
+      "pattern": "^cap-[A-Za-z0-9._-]+$"
+    },
+    "skill_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_type": {
+      "enum": [
+        "task_success",
+        "task_failure",
+        "negative_transfer",
+        "correction",
+        "contradiction",
+        "dispute"
+      ]
+    },
+    "source_system": {
+      "enum": [
+        "cultivating",
+        "skill-tester",
+        "human-review",
+        "external-adapter"
+      ]
+    },
+    "measurement_protocol": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metric_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metric_value": {},
+    "metric_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "task_family": {
+      "type": "string",
+      "description": "Cluster id used for transfer analysis."
+    },
+    "executor": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance_chain_id": {
+      "type": "string",
+      "pattern": "^prov-[A-Za-z0-9._-]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "x-anf-schema-version": "0.1.0"
+}

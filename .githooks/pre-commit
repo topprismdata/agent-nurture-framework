@@ -1,0 +1,4 @@
+#!/bin/sh
+# ANF pre-commit hook. Install once:
+#   git config core.hooksPath .githooks
+exec sh "$(dirname "$0")/../tools/check_boundaries.sh" --staged
