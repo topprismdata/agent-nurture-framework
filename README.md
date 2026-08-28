@@ -4,6 +4,12 @@
 
 # Agent Nurture Framework
 
+> **Language / 语言:** English primary · 中文概览如下。
+>
+> ### 中文概览
+> 面向组织的治理与评测协议，用于把重复的人机协作经验沉淀为有证据支持、可受控复用的能力。
+
+
 **A vendor-neutral governance and evaluation protocol for turning repeated human-agent work into evidence-backed organizational capabilities.**
 
 `NATIVE AI` · `PROTOCOL` · `GOVERNANCE` · `EVIDENCE-FIRST` · `MIT`
