@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/topprismdata/.github/main/assets/brand/topprism-repo-header.png" alt="TopPrism dual-prism visual" width="100%" />
+</p>
+
 # Agent Nurture Framework
 
 **A vendor-neutral governance and evaluation protocol for turning repeated human-agent work into evidence-backed organizational capabilities.**
