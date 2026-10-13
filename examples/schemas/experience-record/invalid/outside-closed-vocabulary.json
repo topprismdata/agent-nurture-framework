@@ -1,0 +1,11 @@
+{
+  "record_id": "exp-er-dt-demo-evaluated",
+  "task": "s6e5-rerank-purification",
+  "decision": "reject purification variant v16",
+  "decision_summary": "outcome.result uses a value outside the closed vocabulary",
+  "action": "kept full-data baseline",
+  "outcome": {"result": "maybe"},
+  "classification": "internal",
+  "trust_level": "verified_execution",
+  "timestamp": "2026-10-09T12:00:00+00:00"
+}

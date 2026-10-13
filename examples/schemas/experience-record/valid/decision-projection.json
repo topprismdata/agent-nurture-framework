@@ -1,0 +1,11 @@
+{
+  "record_id": "exp-er-dt-demo-evaluated",
+  "task": "s6e5-rerank-purification",
+  "decision": "reject purification variant v16",
+  "decision_summary": "rejected: cand-b(below_min_improvement); uncertainty: metric_std=0.0002, margin=-0.0001, note=-",
+  "action": "kept full-data baseline as selected_option",
+  "outcome": {"result": "success", "metric_name": "map@k", "metric_value": 0.9529, "notes": "offline CV only"},
+  "classification": "internal",
+  "trust_level": "verified_execution",
+  "timestamp": "2026-10-09T12:00:00+00:00"
+}

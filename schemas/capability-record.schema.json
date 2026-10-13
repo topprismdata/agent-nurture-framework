@@ -4,13 +4,13 @@
   "title": "ANF CapabilityRecord (topprism metadata block)",
   "description": "Organizational metadata for a capability. In a SKILL.md this object nests under metadata.topprism; physical format defers to the Agent Skills specification. Jointly owned with cultivating-ml-agent — see schemas/README.md.",
   "type": "object",
-  "x-anf-schema-version": "0.1.0",
+  "x-anf-schema-version": "0.2.0",
   "required": ["capability_id", "lifecycle_status", "risk_level", "scope", "provenance_chain_id"],
   "additionalProperties": true,
   "properties": {
     "capability_id": {"type": "string", "pattern": "^cap-[A-Za-z0-9._-]+$"},
     "lifecycle_status": {
-      "enum": ["draft", "active", "refining", "stable", "disputed", "deprecated"]
+      "enum": ["candidate", "observed", "validated-local", "validated-transfer", "stable", "disputed", "deprecated"]
     },
     "risk_level": {"enum": ["low", "medium", "high"]},
     "scope": {"enum": ["personal", "project", "team", "organization"]},

@@ -141,7 +141,7 @@ description: ...
 metadata:
   topprism:
     capability_id: cap-2026-0822-001
-    lifecycle_status: validated    # draft|active|refining|stable|disputed|deprecated
+    lifecycle_status: validated-local    # candidate|observed|validated-local|validated-transfer|stable|disputed|deprecated (ADR-002)
     risk_level: low|medium|high
     scope: personal|project|team|organization
     evidence_ids: [ev-...]

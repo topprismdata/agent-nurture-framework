@@ -1,0 +1,16 @@
+{
+  "evidence_id": "ev-2026-1009-001",
+  "capability_id": "cap-2026-1013-001",
+  "skill_id": "adversarial-validation-kaggle",
+  "evidence_type": "task_success",
+  "source_system": "cultivating",
+  "measurement_protocol": "5-fold-stratified-oof",
+  "protocol_version": "1.0",
+  "metric_name": "map@k",
+  "metric_value": 0.9529,
+  "metric_version": "sklearn-1.5",
+  "task_family": "tabular",
+  "executor": {"name": "runner", "version": "0.1.0"},
+  "provenance_chain_id": "prov-demo-001",
+  "timestamp": "2026-10-09T12:00:00+00:00"
+}

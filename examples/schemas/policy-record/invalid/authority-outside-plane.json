@@ -1,0 +1,10 @@
+{
+  "policy_id": "pol-escalated",
+  "authority_level": "A5",
+  "statement": "A5 does not exist in the A0-A3 authority plane.",
+  "scope": "organization",
+  "classification": "internal",
+  "owner": "topprism-maintainers",
+  "version": "1.0.0",
+  "effective_from": "2026-10-09"
+}

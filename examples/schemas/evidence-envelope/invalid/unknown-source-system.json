@@ -1,0 +1,15 @@
+{
+  "evidence_id": "ev-2026-1009-002",
+  "capability_id": "cap-2026-1013-001",
+  "skill_id": "adversarial-validation-kaggle",
+  "evidence_type": "task_failure",
+  "source_system": "mlflow",
+  "measurement_protocol": "5-fold-stratified-oof",
+  "protocol_version": "1.0",
+  "metric_name": "map@k",
+  "metric_value": 0.91,
+  "metric_version": "sklearn-1.5",
+  "executor": {"name": "runner"},
+  "provenance_chain_id": "prov-demo-001",
+  "timestamp": "2026-10-09T12:00:00+00:00"
+}

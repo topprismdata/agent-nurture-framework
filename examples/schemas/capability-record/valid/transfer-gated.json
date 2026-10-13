@@ -1,0 +1,19 @@
+{
+  "capability_id": "cap-2026-1013-001",
+  "lifecycle_status": "validated-transfer",
+  "risk_level": "medium",
+  "scope": "project",
+  "provenance_chain_id": "prov-demo-001",
+  "evidence_ids": ["ev-2026-1009-001", "ev-2026-1009-002"],
+  "freshness": {
+    "last_used": "2026-10-01T00:00:00+00:00",
+    "last_verified": "2026-09-20T00:00:00+00:00",
+    "last_contradicted": null,
+    "last_verified_evidence_id": "ev-2026-1009-002",
+    "source_version": "pandas 2.2",
+    "dependencies": [
+      {"name": "pandas", "version_at_verification": "2.2.3", "current_version": null}
+    ]
+  },
+  "authority_constraints": ["pol-promotion-default"]
+}

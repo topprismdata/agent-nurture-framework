@@ -23,7 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from anf_frontmatter import discover_skills, parse_frontmatter  # noqa: E402
 
-LIFECYCLE = {"draft", "active", "refining", "stable", "disputed", "deprecated"}
+LIFECYCLE = {"candidate", "observed", "validated-local", "validated-transfer", "stable", "disputed", "deprecated"}
 RISK = {"low", "medium", "high"}
 SCOPE = {"personal", "project", "team", "organization"}
 
@@ -69,9 +69,9 @@ def lint(path: Path) -> list[dict[str, str]]:
         prov = tp.get("provenance_chain_id")
         if isinstance(prov, str) and prov and not PROV_ID.match(prov):
             add("FAIL", f"provenance_chain_id format invalid: {prov!r}")
-        status = ls if isinstance(ls, str) else "draft"
-        if status == "active" and not prov:
-            add("WARN", "active capability should reference provenance_chain_id "
+        status = ls if isinstance(ls, str) else "candidate"
+        if status == "observed" and not prov:
+            add("WARN", "observed capability should reference provenance_chain_id "
                         "(knowledge-architecture §4.1)")
     elif meta.get("topprism"):
         add("WARN", "topprism block found at top level; expected metadata.topprism")

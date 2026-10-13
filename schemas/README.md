@@ -6,12 +6,14 @@ ANF v1 contracts as machine-validatable JSON Schema (draft 2020-12).
 |---|---|---|---|
 | ExperienceRecord | [`experience-record.schema.json`](experience-record.schema.json) | 0.1.0 | DRAFT |
 | EvidenceRecord (Envelope) | [`evidence-envelope.schema.json`](evidence-envelope.schema.json) | 0.1.0 | DRAFT |
-| CapabilityRecord | [`capability-record.schema.json`](capability-record.schema.json) | 0.1.0 | DRAFT — pending joint sign-off with `cultivating-ml-agent` |
+| CapabilityRecord | [`capability-record.schema.json`](capability-record.schema.json) | 0.2.0 | DRAFT — pending joint sign-off with `cultivating-ml-agent` (0.2.0: canonical lifecycle enum per [ADR-002](../docs/05_ADR-002_LIFECYCLE_VOCABULARY.md)) |
 | PolicyRecord | [`policy-record.schema.json`](policy-record.schema.json) | 0.1.0 | DRAFT |
 
 ## Versioning & compatibility
 
 - Each file carries `x-anf-schema-version` (semver). **Breaking change ⇒ major bump.**
+  While version is 0.x (pre-sign-off), a breaking change bumps the **minor**
+  (0.1.0 → 0.2.0); the major bump rule takes effect at 1.0.0.
 - Adding optional fields = minor. Description/enum-value additions that consumers
   must tolerate = patch.
 - Adapters MUST fail closed on unknown **required** fields and MAY pass through

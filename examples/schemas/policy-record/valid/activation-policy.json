@@ -1,0 +1,13 @@
+{
+  "policy_id": "pol-promotion-default",
+  "authority_level": "A2",
+  "statement": "Activation of any capability requires an explicit A2 human authorization recorded against the capability's provenance chain.",
+  "scope": "organization",
+  "classification": "internal",
+  "owner": "topprism-maintainers",
+  "approvers": ["ghb"],
+  "version": "1.0.0",
+  "effective_from": "2026-10-09",
+  "review_due": null,
+  "guidance_refs": ["cap-2026-1013-001"]
+}
